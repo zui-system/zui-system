@@ -306,7 +306,7 @@ for u,p in urls:
 open(os.path.join(OUT,'sitemap.xml'),'w').write(sm+'</urlset>\n')
 
 # ---------- data untuk panel pengaturan ----------
-open(os.path.join(OUT,'tema.css'),'w').write(tema_css(TAMPIL))
+open(os.path.join(OUT,'tema.css'),'w').write(TEMA_CSS)
 open(os.path.join(OUT,'data','tampilan.json'),'w').write(json.dumps(dict(opsi=TAMPILAN_OPSI,palet=PALET,bawaan=TAMPILAN_BAWAAN),ensure_ascii=False,indent=1)+'\n')
 open(os.path.join(OUT,'data','ikon.json'),'w').write(json.dumps(ICONS,ensure_ascii=False,indent=1)+'\n')
 OGS['og-image.png']=(None,'Aplikasi untuk usaha, proyek, dan belajar')

@@ -133,7 +133,7 @@ details.help{margin-top:12px;font-size:13px;color:var(--mu)}details.help summary
   <div class="btns"><button class="bb" type="button" id="tReset">Kembalikan ke bawaan</button></div></div>
  <div class="card pv"><div class="pvbar"><div class="seg" id="pvHal" role="group" aria-label="Halaman pratinjau"><button type="button" data-h="index.html" aria-pressed="true">Beranda</button><button type="button" data-h="zui-erp.html" aria-pressed="false">Panduan</button><button type="button" data-h="kontak.html" aria-pressed="false">Kontak</button></div>
   <div class="seg" id="pvDev" role="group" aria-label="Perangkat"><button type="button" data-d="pc" aria-pressed="true">PC</button><button type="button" data-d="hp" aria-pressed="false">HP</button></div></div>
-  <div class="pvf"><iframe id="pvFrame" title="Pratinjau tampilan" src="index.html"></iframe></div><p class="s" style="margin:8px 0 0">Pratinjau memakai isi situs yang sedang tayang dengan tampilan pilihan Anda.</p></div>
+  <div class="pvf"><iframe id="pvFrame" title="Pratinjau tampilan" src="about:blank"></iframe></div><p class="s" style="margin:8px 0 0">Pratinjau memakai isi situs yang sedang tayang dengan tampilan pilihan Anda.</p></div>
 </div></div>
 
 <div data-p="terbit" class="hide"><div class="card" style="max-width:680px"><h2>Terbitkan perubahan</h2><p class="s">Semua perubahan disimpan sebagai draf di perangkat ini sampai Anda menekan Terbitkan. Setelah itu GitHub menyusun ulang halaman, biasanya 1–3 menit.</p>
@@ -193,7 +193,7 @@ function note(t){var l=$('log');l.appendChild(el('li',{class:'w',text:t}))}
 /* ---------- tab ---------- */
 var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
 tabs.forEach(function(b){b.onclick=function(){tabs.forEach(function(x){x.setAttribute('aria-selected',x===b)});
- document.querySelectorAll('[data-p]').forEach(function(p){p.classList.toggle('hide',p.dataset.p!==b.dataset.t)});if(b.dataset.t==='terbit')renderChanges()}});
+ document.querySelectorAll('[data-p]').forEach(function(p){p.classList.toggle('hide',p.dataset.p!==b.dataset.t)});if(b.dataset.t==='tampilan'){var f=$('pvFrame');if(!f.src||f.src==='about:blank')pvLoad((document.querySelector('#pvHal [aria-pressed=true]')||{dataset:{h:'index.html'}}).dataset.h);else preview()}if(b.dataset.t==='terbit')renderChanges()}});
 
 /* ---------- draf ---------- */
 function dirty(){return JSON.stringify(S.data)!==JSON.stringify(S.base)||Object.keys(S.files).length>0||Object.keys(S.dels).length>0}
@@ -368,13 +368,15 @@ $('tWarna2').oninput=function(e){tvGet().warna_kedua=e.target.value;changed();pr
 $('tHuruf').onchange=function(e){tvGet().huruf=e.target.value;changed();preview()};
 $('tTombol').onchange=function(e){tvGet().tombol_tema=e.target.checked;changed();preview()};
 $('tReset').onclick=function(){S.data.tampilan=JSON.parse(JSON.stringify(S.tv.bawaan));changed();renderTampilan()};
-function preview(){var f=$('pvFrame'),d;try{d=f.contentDocument}catch(e){return}if(!d||!d.head||!S.tv)return;var t=tvGet();
+function preview(){var f=$('pvFrame'),d;try{d=f.contentDocument}catch(e){return}if(!d||!d.head||!S.tv||d.location.href==='about:blank')return;var t=tvGet();
  var st=d.getElementById('zpv');if(!st){st=d.createElement('style');st.id='zpv';d.head.appendChild(st)}st.textContent=temaCss(t);
  var lk=d.getElementById('zpvf');if(!lk){lk=d.createElement('link');lk.id='zpvf';lk.rel='stylesheet';d.head.appendChild(lk)}lk.href='https://fonts.googleapis.com/css2?family='+(S.tv.opsi.huruf[t.huruf]||S.tv.opsi.huruf.Inter)+'&display=swap';
  var R=d.documentElement;R.removeAttribute('data-theme');R.dataset.default=S.tv.opsi.tema[t.tema]||'dark';
  var b=d.getElementById('tt');if(b)b.style.display=t.tombol_tema?'':'none'}
 $('pvFrame').addEventListener('load',preview);
-[].forEach.call(document.querySelectorAll('#pvHal button'),function(b){b.onclick=function(){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});$('pvFrame').src=b.dataset.h}});
+/* halaman pratinjau selalu dimuat ulang tanpa cache, lalu tampilan pilihan disuntikkan */
+function pvLoad(h){$('pvFrame').src=h+(h.indexOf('?')<0?'?':'&')+'pratinjau='+Date.now()}
+[].forEach.call(document.querySelectorAll('#pvHal button'),function(b){b.onclick=function(){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});pvLoad(b.dataset.h)}});
 [].forEach.call(document.querySelectorAll('#pvDev button'),function(b){b.onclick=function(){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});$('pvFrame').parentNode.classList.toggle('hp',b.dataset.d==='hp')}});
 
 function renderAll(){renderApps();renderForms();renderTampilan();saveDraft()}

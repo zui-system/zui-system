@@ -70,6 +70,11 @@ def tema_css(t):
     return '/* Dibuat otomatis oleh _alat/build.py dari data/situs.json (menu Tampilan di panel). Jangan diubah langsung. */\n'+base+css
 FONT_URL='https://fonts.googleapis.com/css2?family='+TAMPILAN_OPSI['huruf'].get(TAMPIL['huruf'],TAMPILAN_OPSI['huruf']['Inter'])+'&display=swap'
 THEME_DEFAULT=TAMPILAN_OPSI['tema'].get(TAMPIL['tema'],'dark')
+# Versi berkas gaya di alamatnya, agar peramban tidak memakai salinan lama dari cache setelah terbit
+import hashlib
+TEMA_CSS=tema_css(TAMPIL)
+def _v(b):return hashlib.md5(b).hexdigest()[:8]
+SITE_V=_v(open(os.path.join(OUT,'site.css'),'rb').read());TEMA_V=_v(TEMA_CSS.encode())
 K=DATA['kontak']
 WA_NUM=re.sub(r'\D','',K['wa']);WA='https://wa.me/'+WA_NUM;WA_TXT=K['wa_teks']
 ADDR=K['alamat'];EMAIL_INFO=K['email_info'];EMAIL_HELP=K['email_bantuan'];JAM=K['jam']
@@ -122,7 +127,7 @@ def page(path,title,desc,body,active='',ld=None,og='og-image.png',ogtype='websit
 <link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONT_URL}">
-<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="tema.css">{extra_head}
+<link rel="stylesheet" href="site.css?v={SITE_V}"><link rel="stylesheet" href="tema.css?v={TEMA_V}">{extra_head}
 <script>try{{var zt=localStorage.getItem('zui-tema');if(zt)document.documentElement.dataset.theme=zt}}catch(e){{}}</script>
 </head><body>
 {top(active)}
