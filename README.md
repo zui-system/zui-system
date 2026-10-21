@@ -44,3 +44,10 @@ Situs kini berfungsi sebagai etalase dan pintu masuk ke aplikasi. **Setiap aplik
 - Panel pengaturan (`admin.js`) tidak lagi dimuat di beranda karena bagian yang diaturnya (harga, tanya jawab, daftar aplikasi lama) sudah tidak ada. Berkasnya tetap disimpan.
 - Alamat aplikasi Zui Finance memakai `finance.zuisystem.com`; repo Finance masih memakai CNAME `akuntansi.zuisystem.com`, samakan bila perlu.
 - Cache `zui-web-v24`.
+
+## Tentang, screenshot, dan video (Oktober 2026)
+- Halaman **Tentang Zui System** (`tentang.html`), ditautkan dari footer.
+- **Screenshot**: taruh di `img/<aplikasi>-<nomor>.jpg` (lihat `img/README.md`), otomatis tampil di bagian "Tampilan aplikasi" pada panduannya.
+- **Video**: taruh di `video/<halaman>.mp4` (dan/atau `.webm`, poster `.jpg`), misalnya `video/zui-todo.mp4` atau `video/studi-kita.mp4`. Judul, keterangan, dan durasi opsional di `video/<halaman>.json` (`judul`, `keterangan`, `durasi` detik, `tanggal`). Video otomatis tampil di panduan, masuk data terstruktur, dan masuk `sitemap.xml`. Disarankan video tegak 600×1230.
+- Video lama Zui Jurnal dipindah ke `video/arsip/` (tidak dipakai karena memuat "Satu akun").
+- Halaman dibangun dari skrip di `_alat/` (lihat `_alat/README.md`). Setelah menambah gambar atau video, jalankan `python3 _alat/build.py`.
