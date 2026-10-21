@@ -30,3 +30,17 @@ Di komputer, menu **Aplikasi** membuka daftar bertingkat; di HP, ikon menu membu
 - **Video cara pakai baru** (Zui ERP, Zui Kontraktor, Zui Jurnal), menggantikan video lama (Inventori, Manufaktur, dst.). Berupa animasi ilustrasi bergaya aplikasi dengan data contoh, bukan rekaman layar, tanpa suara dengan teks penjelasan di layar. Ukuran 600×1230 (cocok dengan pemutar HP di beranda), 45–54 detik, MP4 (H.264) + WebM cadangan + poster JPG di folder `video/` (`zui-erp`, `zui-kontraktor`, `zui-jurnal`). Daftar `V` di skrip beranda sudah diganti; tiap halaman aplikasi punya bagian video sendiri dengan data terstruktur VideoObject, dan `sitemap.xml` memuat entri video. Agar bagian **Cara pakai** muncul di beranda, aktifkan lewat panel > Tampilan. Unggah folder `video/` utuh (jangan diratakan). Cache `zui-web-v21`.
 
 - Bagian baru **Aplikasi Kami** (`#aplikasi-kami`) di beranda: enam kartu (Zui ERP, Zui Kontraktor, Zui Jurnal, Zui Finance, Zui To-Do, Studi Kita), masing-masing dengan tombol **Buka Aplikasi** ke subdomainnya di tab baru. Ditulis statis di HTML, tidak diatur dari panel. Tautan "Aplikasi Kami"/"Aplikasi" ditambahkan ke menu semua halaman. Kontak di footer: WhatsApp, `info@zuisystem.com`, `support@zuisystem.com`, dan alamat. Video Zui ERP/Kontraktor/Jurnal dipindah ke folder `video/` (sebelumnya terunggah di root sehingga 404). Cache `zui-web-v22`.
+
+## Tampilan baru: etalase aplikasi (Oktober 2026)
+Situs kini berfungsi sebagai etalase dan pintu masuk ke aplikasi. **Setiap aplikasi berdiri sendiri** (akun, data, dan langganan terpisah); harga, login, dan uji coba ada di dalam tiap aplikasi, bukan di situs ini.
+
+- **Tampilan gelap** untuk semua halaman, gaya bersama di `site.css` (huruf Inter).
+- **Beranda** (`index.html`): ubin 6 aplikasi (buka di tab baru), Kenapa Zui System, Panduan aplikasi, tombol WhatsApp. Tombol Masuk, Coba gratis, harga, dan kalimat "satu akun" dihapus.
+- **Panduan per aplikasi** (juga tampil di Blog): `zui-erp.html`, `zui-kontraktor.html`, `zui-finance.html`, `zui-jurnal.html`, `zui-todo.html`, `studi-kita.html`. Isinya diambil dari fitur nyata di repo tiap aplikasi. Artikel `apa-itu-erp.html` tetap ada.
+- **Legal**: `syarat.html` (Syarat Layanan), `privasi.html`, `pengembalian-dana.html`, `kontak.html`, disesuaikan dari dokumen legal ZUI Kontraktor untuk semua aplikasi. Nama PT hanya ditulis di halaman legal.
+- **SEO**: judul, deskripsi, canonical, Open Graph, gambar `og-*.png` per halaman, JSON-LD (Organization, Article, FAQPage, BreadcrumbList, SoftwareApplication, VideoObject), `sitemap.xml`.
+- **WhatsApp** +62 882-0007-49699: tombol bulat di pojok kanan bawah setiap halaman, ikon di footer, dan tombol Chat WhatsApp.
+- Video Zui Jurnal tidak dipakai lagi karena memuat adegan "Satu akun". Video Zui ERP dan Zui Kontraktor tetap dipakai di panduannya.
+- Panel pengaturan (`admin.js`) tidak lagi dimuat di beranda karena bagian yang diaturnya (harga, tanya jawab, daftar aplikasi lama) sudah tidak ada. Berkasnya tetap disimpan.
+- Alamat aplikasi Zui Finance memakai `finance.zuisystem.com`; repo Finance masih memakai CNAME `akuntansi.zuisystem.com`, samakan bila perlu.
+- Cache `zui-web-v24`.
