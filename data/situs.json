@@ -105,5 +105,17 @@
       "gambar": [],
       "video": null
     }
-  ]
+  ],
+  "tampilan": {
+    "tema": "gelap",
+    "warna": "#5BB4D2",
+    "warna_kedua": "#7FD1B9",
+    "huruf": "Inter",
+    "ukuran_huruf": "sedang",
+    "ukuran_judul": "sedang",
+    "kartu": "normal",
+    "sudut": "sedang",
+    "jarak": "normal",
+    "tombol_tema": false
+  }
 }

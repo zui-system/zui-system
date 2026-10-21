@@ -35,6 +35,41 @@ ICONS={
 PANDUAN={'erp':'zui-erp.html','kontraktor':'zui-kontraktor.html','finance':'zui-finance.html','jurnal':'zui-jurnal.html','todo':'zui-todo.html','studikita':'studi-kita.html'}
 
 DATA=json.load(open(os.path.join(OUT,'data','situs.json'),encoding='utf-8'))
+# ---------- tampilan (diatur dari panel, menu Tampilan) ----------
+# Pilihan dan nilainya; disalin ke data/tampilan.json agar panel memakai angka yang sama.
+TAMPILAN_OPSI={
+ 'huruf':{'Inter':'Inter:wght@400;500;600;700','Poppins':'Poppins:wght@400;500;600;700','Nunito Sans':'Nunito+Sans:wght@400;600;700;800','Plus Jakarta Sans':'Plus+Jakarta+Sans:wght@400;500;600;700','IBM Plex Sans':'IBM+Plex+Sans:wght@400;500;600;700'},
+ 'ukuran_huruf':{'kecil':0.92,'sedang':1,'besar':1.1,'sangat besar':1.2},
+ 'ukuran_judul':{'kecil':0.88,'sedang':1,'besar':1.15},
+ 'kartu':{'rapat':0.8,'normal':1,'lega':1.3},
+ 'sudut':{'tajam':0.3,'sedang':1,'bulat':1.7},
+ 'jarak':{'rapat':0.75,'normal':1,'lega':1.35},
+ 'tema':{'gelap':'dark','terang':'light','otomatis':'auto'},
+}
+PALET={'dark':{'bg':'#0A141B','pn':'#111E27','pn2':'#162733','ink':'#E8EEF2','mu':'#93A3AF','ln':'#22343F','tif':'#fff','scheme':'dark'},
+       'light':{'bg':'#F4F7F8','pn':'#FFFFFF','pn2':'#EDF2F4','ink':'#0E2230','mu':'#4B5B68','ln':'#D5DEE3','tif':'#0E2230','scheme':'light'}}
+TAMPILAN_BAWAAN=dict(tema='gelap',warna='#5BB4D2',warna_kedua='#7FD1B9',huruf='Inter',ukuran_huruf='sedang',ukuran_judul='sedang',kartu='normal',sudut='sedang',jarak='normal',tombol_tema=False)
+TAMPIL=dict(TAMPILAN_BAWAAN,**(DATA.get('tampilan') or {}))
+def _hex(c,d):return c if re.fullmatch(r'#[0-9A-Fa-f]{6}',str(c or '')) else d
+def palet_css(name):
+    p=PALET[name];t=';'.join(f'--{k}:{v}' for k,v in p.items() if k!='scheme')
+    act='--act:var(--ac);--act2:var(--ac2)' if name=='dark' else '--act:color-mix(in srgb,var(--ac) 62%,#0E2230);--act2:color-mix(in srgb,var(--ac2) 55%,#0E2230)'
+    return f'{t};{act};color-scheme:{p["scheme"]}'
+def tema_css(t):
+    """CSS tema dari pilihan panel. Fungsi yang sama ada di pengaturan.html (temaCss) untuk pratinjau."""
+    O=TAMPILAN_OPSI;g=lambda k:O[k].get(t.get(k),O[k][TAMPILAN_BAWAAN[k]])
+    font=t.get('huruf') if t.get('huruf') in O['huruf'] else 'Inter'
+    base=(f':root{{--ac:{_hex(t.get("warna"),"#5BB4D2")};--ac2:{_hex(t.get("warna_kedua"),"#7FD1B9")};'
+          f'--font:"{font}",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;'
+          f'--fs:{g("ukuran_huruf")};--hs:{g("ukuran_judul")};--pad:{g("kartu")};--rad:{g("sudut")};--gap:{g("jarak")}}}\n')
+    mode=g('tema')
+    if mode=='light':css=f':root{{{palet_css("light")}}}\n:root[data-theme=dark]{{{palet_css("dark")}}}\n'
+    elif mode=='auto':css=(f':root{{{palet_css("dark")}}}\n@media (prefers-color-scheme:light){{:root:not([data-theme=dark]){{{palet_css("light")}}}}}\n'
+                           f':root[data-theme=light]{{{palet_css("light")}}}\n')
+    else:css=f':root{{{palet_css("dark")}}}\n:root[data-theme=light]{{{palet_css("light")}}}\n'
+    return '/* Dibuat otomatis oleh _alat/build.py dari data/situs.json (menu Tampilan di panel). Jangan diubah langsung. */\n'+base+css
+FONT_URL='https://fonts.googleapis.com/css2?family='+TAMPILAN_OPSI['huruf'].get(TAMPIL['huruf'],TAMPILAN_OPSI['huruf']['Inter'])+'&display=swap'
+THEME_DEFAULT=TAMPILAN_OPSI['tema'].get(TAMPIL['tema'],'dark')
 K=DATA['kontak']
 WA_NUM=re.sub(r'\D','',K['wa']);WA='https://wa.me/'+WA_NUM;WA_TXT=K['wa_teks']
 ADDR=K['alamat'];EMAIL_INFO=K['email_info'];EMAIL_HELP=K['email_bantuan'];JAM=K['jam']
@@ -48,7 +83,8 @@ def host(u):return u.split('//')[1]
 NAV=[('Aplikasi','index.html#apl','apl'),('Blog','blog.html','blog'),('Syarat','syarat.html','legal'),('Kontak','kontak.html','kontak')]
 def top(active):
     links=''.join(f'<a href="{h}"'+(' aria-current="page"' if k==active else '')+f'>{n}</a>' for n,h,k in NAV)
-    return f'<a class="sk" href="#isi">Lewati ke isi</a><header class="top"><div class="w"><a class="lg" href="./" aria-label="Zui System, beranda">{LOGO}</a><nav class="nv" aria-label="Utama">{links}</nav></div></header>'
+    tb='<button type="button" class="tt" id="tt" aria-label="Ganti tampilan terang atau gelap" title="Terang / gelap"><span aria-hidden="true"></span></button>' if TAMPIL.get('tombol_tema') else ''
+    return f'<a class="sk" href="#isi">Lewati ke isi</a><header class="top"><div class="w"><a class="lg" href="./" aria-label="Zui System, beranda">{LOGO}</a><nav class="nv" aria-label="Utama">{links}</nav>{tb}</div></header>'
 
 def footer():
     apps=''.join(f'<a href="{a["pg"]}">{esc(a["n"])}</a>' for a in APPS)
@@ -72,7 +108,7 @@ def page(path,title,desc,body,active='',ld=None,og='og-image.png',ogtype='websit
     graph=[dict(ORG,legalName=PT) if legal else ORG]+(ld or [])
     t=H.escape(title,quote=True);d=H.escape(desc,quote=True)
     doc=f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8">
+<html lang="id" data-default="{THEME_DEFAULT}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0A141B"><title>{t}</title>
 <meta name="description" content="{d}">
@@ -85,15 +121,16 @@ def page(path,title,desc,body,active='',ld=None,og='og-image.png',ogtype='websit
 <script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@graph":graph},ensure_ascii=False).replace("</","<\\/")}</script>
 <link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="site.css">{extra_head}
+<link rel="stylesheet" href="{FONT_URL}">
+<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="tema.css">{extra_head}
+<script>try{{var zt=localStorage.getItem('zui-tema');if(zt)document.documentElement.dataset.theme=zt}}catch(e){{}}</script>
 </head><body>
 {top(active)}
 <main id="isi">
 {body}
 </main>
 {footer()}
-<script>function zp(){{if(location.hash==='#pengaturan')location.replace('pengaturan.html')}}zp();addEventListener('hashchange',zp);(function(){{var t=[],w;document.querySelectorAll('.top .lg').forEach(function(l){{l.addEventListener('click',function(e){{e.preventDefault();var n=Date.now();t=t.filter(function(x){{return n-x<3000}});t.push(n);clearTimeout(w);if(t.length>=5){{location.href='pengaturan.html';return}}w=setTimeout(function(){{location.href=l.href}},600)}})}})}})();document.getElementById('yr').textContent=new Date().getFullYear();document.querySelectorAll('.yt').forEach(function(b){{b.addEventListener('click',function(){{var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.yt+'?autoplay=1&rel=0';f.title=b.getAttribute('aria-label');f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;b.replaceWith(f)}})}});if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){{}})</script>
+<script>function zp(){{if(location.hash==='#pengaturan')location.replace('pengaturan.html')}}zp();addEventListener('hashchange',zp);(function(){{var t=[],w;document.querySelectorAll('.top .lg').forEach(function(l){{l.addEventListener('click',function(e){{e.preventDefault();var n=Date.now();t=t.filter(function(x){{return n-x<3000}});t.push(n);clearTimeout(w);if(t.length>=5){{location.href='pengaturan.html';return}}w=setTimeout(function(){{location.href=l.href}},600)}})}})}})();document.getElementById('yr').textContent=new Date().getFullYear();var tt=document.getElementById('tt');if(tt){{var R=document.documentElement,eff=function(){{var d=R.dataset.theme;if(d)return d;var b=R.dataset.default;return b==='auto'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):b}};tt.onclick=function(){{var n=eff()==='dark'?'light':'dark';R.dataset.theme=n;try{{localStorage.setItem('zui-tema',n)}}catch(e){{}}}}}}document.querySelectorAll('.yt').forEach(function(b){{b.addEventListener('click',function(){{var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.yt+'?autoplay=1&rel=0';f.title=b.getAttribute('aria-label');f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;b.replaceWith(f)}})}});if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){{}})</script>
 </body></html>
 '''
     open(os.path.join(OUT,path),'w',encoding='utf-8').write(doc)
