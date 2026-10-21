@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /pengaturan.html
+Disallow: /pengaturan/
 Disallow: /_alat/
 Disallow: /data/
 
