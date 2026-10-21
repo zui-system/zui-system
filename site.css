@@ -91,3 +91,5 @@ h1,h2,h3{text-wrap:balance}
 @media(max-width:360px){.nv{gap:10px;font-size:12.5px}}
 /* galeri tampilan aplikasi */
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:6px 0 18px}.gal figure{margin:0}.gal img{display:block;width:100%;max-width:100%;height:auto;border-radius:10px;border:1px solid var(--ln);background:var(--pn)}
+.gal.pc{grid-template-columns:1fr;gap:12px}.gal a{display:block}.gal img:hover{border-color:var(--ac)}
+.vid.pc{grid-template-columns:1fr;align-items:start}.vid.pc video{max-width:100%;aspect-ratio:16/9}

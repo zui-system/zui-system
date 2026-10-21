@@ -13,6 +13,28 @@ def ti(a,cls='ti'):return f'<span class="{cls}" style="--c:{a["c"]}">{ic(a["i"])
 GEN_I='<path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/>'
 
 
+
+def img_size(p):
+    """Ukuran gambar (lebar, tinggi) tanpa pustaka tambahan; None bila tidak terbaca."""
+    import struct
+    try:
+        with open(p,'rb') as f:d=f.read(65536)
+        if d[:8]==b'\x89PNG\r\n\x1a\n':return struct.unpack('>II',d[16:24])
+        if d[:4]==b'RIFF' and d[8:12]==b'WEBP':
+            if d[12:16]==b'VP8X':return (int.from_bytes(d[24:27],'little')+1,int.from_bytes(d[27:30],'little')+1)
+            if d[12:16]==b'VP8 ':return (struct.unpack('<H',d[26:28])[0]&0x3fff,struct.unpack('<H',d[28:30])[0]&0x3fff)
+            if d[12:16]==b'VP8L':v=int.from_bytes(d[21:25],'little');return ((v&0x3fff)+1,((v>>14)&0x3fff)+1)
+        if d[:2]==b'\xff\xd8':
+            i=2
+            while i<len(d)-9:
+                if d[i]!=0xFF:i+=1;continue
+                m=d[i+1]
+                if m in (0xC0,0xC1,0xC2):h,w=struct.unpack('>HH',d[i+5:i+9]);return (w,h)
+                i+=2+struct.unpack('>H',d[i+2:i+4])[0]
+    except Exception:pass
+    return None
+def is_pc(p):
+    s=img_size(p);return True if not s else s[0]>=s[1]
 def find_video(slug,app_name):
     """Video panduan tampil otomatis bila ada video/<slug>.mp4 (atau .webm). Data opsional di video/<slug>.json."""
     import json as _j
@@ -23,7 +45,7 @@ def find_video(slug,app_name):
     if os.path.exists(p):meta=_j.load(open(p,encoding='utf-8'))
     return dict(slug=slug,mp4=mp4,webm=webm,poster=os.path.exists(os.path.join(OUT,'video',slug+'.jpg')),
         judul=meta.get('judul','Cara pakai '+app_name),ket=meta.get('keterangan','Video singkat cara memakai '+app_name+'.'),
-        durasi=meta.get('durasi'),tanggal=meta.get('tanggal',DATE))
+        durasi=meta.get('durasi'),tanggal=meta.get('tanggal',DATE),pc=meta.get('orientasi','pc')!='hp')
 # kartu panduan (dipakai di beranda, blog, dan bagian terkait)
 ERP_ART=dict(pg='apa-itu-erp.html',n='Apa Itu ERP? Panduan untuk Pemilik Usaha',d='Pengertian ERP, modul yang umum, tanda usaha Anda membutuhkannya, dan cara memilih.')
 def card(key):
@@ -60,13 +82,15 @@ def article_page(path,title_seo,h1,desc,lede,sections,faq,rel,app=None,video=Non
     if video:
         v=video;src=(f'<source src="video/{v["slug"]}.mp4" type="video/mp4">' if v['mp4'] else '')+(f'<source src="video/{v["slug"]}.webm" type="video/webm">' if v['webm'] else '')
         info=(f'Video tanpa suara, {v["durasi"]} detik.' if v['durasi'] else '')
-        body_html=body_html.replace('<h2 id="'+sections[2][0]+'">',f'<div class="vid"><video controls playsinline preload="none"'+(f' poster="video/{v["slug"]}.jpg"' if v['poster'] else '')+f'>{src}</video><div><h3 style="margin-top:0">{v["judul"]}</h3><p>{v["ket"]} {info}</p></div></div><h2 id="{sections[2][0]}">',1)
+        body_html=body_html.replace('<h2 id="'+sections[2][0]+'">',f'<div class="vid'+(' pc' if v['pc'] else '')+'"><video controls playsinline preload="none"'+(f' poster="video/{v["slug"]}.jpg"' if v['poster'] else '')+f'>{src}</video><div><h3 style="margin-top:0">{v["judul"]}</h3><p>{v["ket"]} {info}</p></div></div><h2 id="{sections[2][0]}">',1)
     if app and app_ld:
         import glob
         shots=sorted(glob.glob(os.path.join(OUT,'img',app['k']+'-*.*')),key=lambda p:int(re.sub(r'\D','',os.path.basename(p).split('-')[-1]) or 0))
         shots=[os.path.relpath(p,OUT) for p in shots if p.lower().endswith(('.jpg','.jpeg','.png','.webp'))]
         if shots:
-            gal='<h2 id="tampilan">Tampilan aplikasi</h2><div class="gal">'+''.join(f'<figure><img src="{s}" alt="Tampilan {app["n"]} {i+1}" loading="lazy"></figure>' for i,s in enumerate(shots))+'</div>'
+            pcs=[s for s in shots if is_pc(os.path.join(OUT,s))];hps=[s for s in shots if s not in pcs]
+            fig=lambda s,i:f'<figure><a href="{s}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="{s}" alt="Tampilan {app["n"]} {i+1}" loading="lazy"></a></figure>'
+            gal='<h2 id="tampilan">Tampilan aplikasi</h2>'+(('<div class="gal pc">'+''.join(fig(s,shots.index(s)) for s in pcs)+'</div>') if pcs else '')+(('<div class="gal">'+''.join(fig(s,shots.index(s)) for s in hps)+'</div>') if hps else '')
             body_html=body_html.replace('<h2 id="'+sections[1][0]+'">',gal+'<h2 id="'+sections[1][0]+'">',1)
             toc=toc.replace('<a href="#'+sections[1][0]+'">','<a href="#tampilan">Tampilan aplikasi</a><a href="#'+sections[1][0]+'">',1)
     if faq: body_html+='<h2 id="faq">Pertanyaan umum</h2>'+faq_html(faq)
