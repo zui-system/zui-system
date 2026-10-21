@@ -1,10 +1,9 @@
-const C='zui-web-v23',A=['./','index.html','manifest.webmanifest','admin.js'];
+const C='zui-web-v24',A=['./','index.html','site.css','manifest.webmanifest','icon-192.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
-  const h=new URL(e.request.url).hostname;
-  if(e.request.method!=='GET'||e.request.url.indexOf('/video/')>=0||(/(googleapis\.com|firebaseio\.com|firebaseapp\.com)$/.test(h)&&h!=='fonts.googleapis.com'))return;
+  const u=new URL(e.request.url);
+  if(e.request.method!=='GET'||u.origin!==location.origin||u.pathname.indexOf('/video/')>=0)return;
   e.respondWith(fetch(e.request).then(r=>{const c=r.clone();caches.open(C).then(x=>x.put(e.request,c)).catch(()=>{});return r})
-    .catch(()=>caches.match(e.request).then(m=>m||caches.match('index.html'))));
+    .catch(()=>caches.match(e.request).then(m=>m||(e.request.mode==='navigate'?caches.match('index.html'):undefined))));
 });
-self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(clients.openWindow('./'))});
