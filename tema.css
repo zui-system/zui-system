@@ -1,0 +1,4 @@
+/* Dibuat otomatis oleh _alat/build.py dari data/situs.json (menu Tampilan di panel). Jangan diubah langsung. */
+:root{--ac:#5BB4D2;--ac2:#7FD1B9;--font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--fs:1;--hs:1;--pad:1;--rad:1;--gap:1}
+:root{--bg:#0A141B;--pn:#111E27;--pn2:#162733;--ink:#E8EEF2;--mu:#93A3AF;--ln:#22343F;--tif:#fff;--act:var(--ac);--act2:var(--ac2);color-scheme:dark}
+:root[data-theme=light]{--bg:#F4F7F8;--pn:#FFFFFF;--pn2:#EDF2F4;--ink:#0E2230;--mu:#4B5B68;--ln:#D5DEE3;--tif:#0E2230;--act:color-mix(in srgb,var(--ac) 62%,#0E2230);--act2:color-mix(in srgb,var(--ac2) 55%,#0E2230);color-scheme:light}

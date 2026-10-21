@@ -58,6 +58,7 @@ Alamat: `https://zuisystem.com/pengaturan.html` (tidak didaftarkan ke Google). D
 - **Gambar**: unggah screenshot per aplikasi (dikecilkan otomatis ke JPG), beri keterangan, urutkan, hapus. Disimpan di `img/`.
 - **Video**: unggah MP4/WebM (maks. 95 MB, disimpan di `video/`, sampul dibuat otomatis) atau tempel tautan YouTube (diputar lewat youtube-nocookie, baru dimuat saat ditekan).
 - **Kontak** dan **teks halaman utama**.
+- **Tampilan**: tema (gelap, terang, otomatis), warna utama dan kedua, jenis huruf, ukuran huruf dan judul, ukuran kartu, sudut kartu, jarak antarbagian, dan tombol terang/gelap untuk pengunjung, dengan pratinjau langsung (PC/HP). Pilihan disimpan di `data/situs.json` (`tampilan`) dan diubah menjadi `tema.css` oleh `build.py`; angka setiap pilihan ada di `TAMPILAN_OPSI` (`_alat/common.py`), disalin ke `data/tampilan.json` untuk panel. Fungsi `tema_css` (Python) dan `temaCss` (panel) harus diubah bersamaan.
 - **Terbitkan**: semua perubahan dikirim sebagai satu commit ke `main` lewat GitHub API. Workflow `.github/workflows/bangun-situs.yml` lalu menjalankan `_alat/build.py` dan menyimpan halaman hasilnya; GitHub Pages menayangkannya dalam beberapa menit. Riwayat setiap terbitan ada di GitHub dan bisa dikembalikan.
 
 Semua data panel ada di `data/situs.json`; daftar ikon di `data/ikon.json` (dibuat oleh `build.py` dari `ICONS` di `_alat/common.py`).

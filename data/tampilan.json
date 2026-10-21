@@ -1,0 +1,76 @@
+{
+ "opsi": {
+  "huruf": {
+   "Inter": "Inter:wght@400;500;600;700",
+   "Poppins": "Poppins:wght@400;500;600;700",
+   "Nunito Sans": "Nunito+Sans:wght@400;600;700;800",
+   "Plus Jakarta Sans": "Plus+Jakarta+Sans:wght@400;500;600;700",
+   "IBM Plex Sans": "IBM+Plex+Sans:wght@400;500;600;700"
+  },
+  "ukuran_huruf": {
+   "kecil": 0.92,
+   "sedang": 1,
+   "besar": 1.1,
+   "sangat besar": 1.2
+  },
+  "ukuran_judul": {
+   "kecil": 0.88,
+   "sedang": 1,
+   "besar": 1.15
+  },
+  "kartu": {
+   "rapat": 0.8,
+   "normal": 1,
+   "lega": 1.3
+  },
+  "sudut": {
+   "tajam": 0.3,
+   "sedang": 1,
+   "bulat": 1.7
+  },
+  "jarak": {
+   "rapat": 0.75,
+   "normal": 1,
+   "lega": 1.35
+  },
+  "tema": {
+   "gelap": "dark",
+   "terang": "light",
+   "otomatis": "auto"
+  }
+ },
+ "palet": {
+  "dark": {
+   "bg": "#0A141B",
+   "pn": "#111E27",
+   "pn2": "#162733",
+   "ink": "#E8EEF2",
+   "mu": "#93A3AF",
+   "ln": "#22343F",
+   "tif": "#fff",
+   "scheme": "dark"
+  },
+  "light": {
+   "bg": "#F4F7F8",
+   "pn": "#FFFFFF",
+   "pn2": "#EDF2F4",
+   "ink": "#0E2230",
+   "mu": "#4B5B68",
+   "ln": "#D5DEE3",
+   "tif": "#0E2230",
+   "scheme": "light"
+  }
+ },
+ "bawaan": {
+  "tema": "gelap",
+  "warna": "#5BB4D2",
+  "warna_kedua": "#7FD1B9",
+  "huruf": "Inter",
+  "ukuran_huruf": "sedang",
+  "ukuran_judul": "sedang",
+  "kartu": "normal",
+  "sudut": "sedang",
+  "jarak": "normal",
+  "tombol_tema": false
+ }
+}

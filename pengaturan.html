@@ -44,6 +44,13 @@ input[type=color]{width:52px;height:38px;border:1px solid var(--ln);border-radiu
 .log{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:6px;font-size:13px}.log li{display:flex;gap:8px;align-items:flex-start}.log li:before{content:"•";color:var(--mu)}.log li.d:before{content:"✓";color:var(--ac2)}.log li.e:before{content:"✕";color:#F28B82}.log li.w:before{content:"…";color:#F2C46B}
 .chg{font-size:13px;color:var(--mu);margin:0;padding-left:1.2em}.chg li{margin:3px 0}
 details.help{margin-top:12px;font-size:13px;color:var(--mu)}details.help summary{cursor:pointer;color:var(--ac);font-weight:600}details.help ol{padding-left:1.2em;margin-top:8px}details.help li{margin:5px 0}
+.tv{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:12px;align-items:start}.tv .card{margin:0}
+.tv .seg{display:flex;flex-wrap:wrap}.tv .seg button{flex:1 1 auto}
+.sw{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.sw span{display:flex;gap:5px;flex-wrap:wrap}.sw span button{width:24px;height:24px;border-radius:50%;border:2px solid var(--ln);cursor:pointer;padding:0}
+.pv{position:sticky;top:64px}.pvbar{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.pvf{display:flex;justify-content:center;background:var(--bg);border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.pvf iframe{display:block;width:100%;height:72vh;border:0;background:#fff;transition:width .2s}.pvf.hp iframe{width:390px;max-width:100%}
+@media(max-width:900px){.tv{grid-template-columns:1fr}.pv{position:static}.pvf iframe{height:60vh}}
 .hide{display:none!important}
 @media(max-width:560px){.row{grid-template-columns:1fr}.ar{grid-template-columns:30px minmax(0,1fr)}.ar .ac{grid-column:1/-1;justify-content:flex-start}}
 </style>
@@ -68,7 +75,7 @@ details.help{margin-top:12px;font-size:13px;color:var(--mu)}details.help summary
 
 <!-- Panel -->
 <section id="panel" class="hide">
-<div class="tabs" role="tablist"><button role="tab" data-t="aplikasi" aria-selected="true">Aplikasi</button><button role="tab" data-t="media" aria-selected="false">Gambar &amp; video</button><button role="tab" data-t="kontak" aria-selected="false">Kontak</button><button role="tab" data-t="beranda" aria-selected="false">Halaman utama</button><button role="tab" data-t="terbit" aria-selected="false">Terbitkan</button></div>
+<div class="tabs" role="tablist"><button role="tab" data-t="aplikasi" aria-selected="true">Aplikasi</button><button role="tab" data-t="media" aria-selected="false">Gambar &amp; video</button><button role="tab" data-t="kontak" aria-selected="false">Kontak</button><button role="tab" data-t="beranda" aria-selected="false">Halaman utama</button><button role="tab" data-t="tampilan" aria-selected="false">Tampilan</button><button role="tab" data-t="terbit" aria-selected="false">Terbitkan</button></div>
 
 <div data-p="aplikasi">
  <div class="card"><h2>Aplikasi</h2><p class="s">Urutan di sini sama dengan urutan ubin di halaman utama. Aplikasi yang disembunyikan tidak tampil di situs.</p><div class="apps" id="appList"></div>
@@ -111,6 +118,24 @@ details.help{margin-top:12px;font-size:13px;color:var(--mu)}details.help summary
  <label class="f" for="bWarna">Judul (bagian berwarna)</label><input id="bWarna" type="text" maxlength="60">
  <label class="f" for="bPengantar">Kalimat pembuka</label><textarea id="bPengantar" maxlength="220"></textarea></div></div>
 
+<div data-p="tampilan" class="hide"><div class="tv">
+ <div class="card"><h2>Tampilan situs</h2><p class="s">Berlaku untuk semua halaman. Lihat hasilnya di pratinjau sebelum menerbitkan.</p>
+  <label class="f">Tema</label><div class="seg" data-k="tema"></div>
+  <div class="row"><div><label class="f" for="tWarna">Warna utama</label><div class="sw"><input type="color" id="tWarna"><span id="tPreset"></span></div></div>
+  <div><label class="f" for="tWarna2">Warna kedua (gradasi)</label><input type="color" id="tWarna2"></div></div>
+  <label class="f" for="tHuruf">Jenis huruf</label><select id="tHuruf"></select>
+  <label class="f">Ukuran huruf</label><div class="seg" data-k="ukuran_huruf"></div>
+  <label class="f">Ukuran judul</label><div class="seg" data-k="ukuran_judul"></div>
+  <label class="f">Ukuran kartu</label><div class="seg" data-k="kartu"></div>
+  <label class="f">Sudut kartu</label><div class="seg" data-k="sudut"></div>
+  <label class="f">Jarak antarbagian</label><div class="seg" data-k="jarak"></div>
+  <label class="ck"><input type="checkbox" id="tTombol"> Tampilkan tombol terang/gelap untuk pengunjung</label>
+  <div class="btns"><button class="bb" type="button" id="tReset">Kembalikan ke bawaan</button></div></div>
+ <div class="card pv"><div class="pvbar"><div class="seg" id="pvHal" role="group" aria-label="Halaman pratinjau"><button type="button" data-h="index.html" aria-pressed="true">Beranda</button><button type="button" data-h="zui-erp.html" aria-pressed="false">Panduan</button><button type="button" data-h="kontak.html" aria-pressed="false">Kontak</button></div>
+  <div class="seg" id="pvDev" role="group" aria-label="Perangkat"><button type="button" data-d="pc" aria-pressed="true">PC</button><button type="button" data-d="hp" aria-pressed="false">HP</button></div></div>
+  <div class="pvf"><iframe id="pvFrame" title="Pratinjau tampilan" src="index.html"></iframe></div><p class="s" style="margin:8px 0 0">Pratinjau memakai isi situs yang sedang tayang dengan tampilan pilihan Anda.</p></div>
+</div></div>
+
 <div data-p="terbit" class="hide"><div class="card" style="max-width:680px"><h2>Terbitkan perubahan</h2><p class="s">Semua perubahan disimpan sebagai draf di perangkat ini sampai Anda menekan Terbitkan. Setelah itu GitHub menyusun ulang halaman, biasanya 1–3 menit.</p>
  <ul class="chg" id="chg"></ul>
  <div class="btns"><button class="bb p" type="button" id="btnTerbit">Terbitkan sekarang</button><button class="bb x" type="button" id="btnBuang">Buang draf</button></div>
@@ -147,8 +172,8 @@ function masuk(tok,remember){S.tok=tok.trim();$('errMasuk').textContent='';$('bt
   return muat()}).catch(function(e){S.tok='';$('errMasuk').textContent=e.status===401?'Token tidak valid atau sudah kedaluwarsa.':(e.status===404?'Repo tidak ditemukan. Pastikan token diberi akses ke '+CFG.owner+'/'+CFG.repo+'.':e.message)})
  .finally(function(){$('btnMasuk').disabled=false;$('btnMasuk').textContent='Masuk'})}
 function muat(){return gh(R+'/git/ref/heads/'+CFG.branch).then(function(ref){S.headSha=ref.object.sha;
-  return Promise.all([readFile('data/situs.json',S.headSha),readFile('data/ikon.json',S.headSha).catch(function(){return '{}'})])}).then(function(r){
-  S.baseText=r[0];S.base=JSON.parse(r[0]);S.icons=JSON.parse(r[1]);S.data=JSON.parse(r[0]);S.files={};S.dels={};
+  return Promise.all([readFile('data/situs.json',S.headSha),readFile('data/ikon.json',S.headSha).catch(function(){return '{}'}),readFile('data/tampilan.json',S.headSha).catch(function(){return 'null'})])}).then(function(r){
+  S.baseText=r[0];S.base=JSON.parse(r[0]);S.icons=JSON.parse(r[1]);S.data=JSON.parse(r[0]);S.files={};S.dels={};S.tv=JSON.parse(r[2]);
   var d=null;try{d=JSON.parse(localStorage.getItem(KEY_DRAFT)||'null')}catch(e){}
   if(d&&d.baseSha===S.headSha&&d.data){S.data=d.data;
    /* berkas baru dari sesi sebelumnya tidak ikut tersimpan: buang rujukannya agar tidak menunjuk ke berkas yang tidak ada */
@@ -280,6 +305,7 @@ function changes(){var out=[],B=S.base,D=S.data;if(!B)return out;
  if(B.aplikasi.map(function(a){return a.k}).filter(function(k){return dk[k]}).join()!==D.aplikasi.map(function(a){return a.k}).filter(function(k){return bk[k]}).join())out.push('Urutan aplikasi diubah');
  if(JSON.stringify(B.kontak)!==JSON.stringify(D.kontak))out.push('Kontak diubah');
  if(JSON.stringify(B.beranda)!==JSON.stringify(D.beranda))out.push('Teks halaman utama diubah');
+ if(D.tampilan&&JSON.stringify(B.tampilan||null)!==JSON.stringify(D.tampilan))out.push('Tampilan situs diubah');
  return out}
 function renderChanges(){var c=changes(),U=$('chg');U.textContent='';if(!c.length)U.appendChild(el('li',{text:'Belum ada perubahan.'}));c.forEach(function(t){U.appendChild(el('li',{text:t}))});
  var nf=Object.keys(S.files).length,nd=Object.keys(S.dels).length;if(nf)U.appendChild(el('li',{text:nf+' berkas baru akan diunggah'}));if(nd)U.appendChild(el('li',{text:nd+' berkas lama akan dihapus'}));
@@ -317,7 +343,41 @@ function pantau(sha){var s=step('GitHub sedang menyusun ulang halaman…'),t0=Da
    if(Date.now()-t0>6*60*1000){s.textContent='Penyusunan masih berjalan. Periksa situs beberapa menit lagi.';return}setTimeout(cek,6000)})
   .catch(function(e){s.textContent=e.status===403?'Status penyusunan tidak bisa dilihat (token tanpa izin Actions). Halaman biasanya tayang dalam 2–3 menit.':'Status penyusunan tidak bisa dimuat. Halaman biasanya tayang dalam 2–3 menit.'})})()}
 
-function renderAll(){renderApps();renderForms();saveDraft()}
+/* ---------- tampilan ---------- */
+/* temaCss sama dengan tema_css di _alat/common.py: ubah keduanya bersamaan */
+var PRESET=['#5BB4D2','#4F8DF5','#2E9E6B','#E0A030','#E0604F','#A374E6','#E46FA8'];
+function tvGet(){var B=(S.tv&&S.tv.bawaan)||{};if(!S.data.tampilan)S.data.tampilan=JSON.parse(JSON.stringify(B));return S.data.tampilan}
+function hex(c,d){return /^#[0-9A-Fa-f]{6}$/.test(c||'')?c:d}
+function palCss(n){var P=S.tv.palet[n],t=Object.keys(P).filter(function(k){return k!=='scheme'}).map(function(k){return '--'+k+':'+P[k]}).join(';');
+ var act=n==='dark'?'--act:var(--ac);--act2:var(--ac2)':'--act:color-mix(in srgb,var(--ac) 62%,#0E2230);--act2:color-mix(in srgb,var(--ac2) 55%,#0E2230)';return t+';'+act+';color-scheme:'+P.scheme}
+function temaCss(t){var O=S.tv.opsi,B=S.tv.bawaan,g=function(k){return O[k][t[k]]!=null?O[k][t[k]]:O[k][B[k]]},font=O.huruf[t.huruf]?t.huruf:'Inter';
+ var css=':root{--ac:'+hex(t.warna,'#5BB4D2')+';--ac2:'+hex(t.warna_kedua,'#7FD1B9')+';--font:"'+font+'",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--fs:'+g('ukuran_huruf')+';--hs:'+g('ukuran_judul')+';--pad:'+g('kartu')+';--rad:'+g('sudut')+';--gap:'+g('jarak')+'}\n',m=g('tema');
+ if(m==='light')css+=':root{'+palCss('light')+'}\n:root[data-theme=dark]{'+palCss('dark')+'}\n';
+ else if(m==='auto')css+=':root{'+palCss('dark')+'}\n@media (prefers-color-scheme:light){:root:not([data-theme=dark]){'+palCss('light')+'}}\n:root[data-theme=light]{'+palCss('light')+'}\n';
+ else css+=':root{'+palCss('dark')+'}\n:root[data-theme=light]{'+palCss('light')+'}\n';return css}
+function renderTampilan(){if(!S.tv){document.querySelector('[data-p=tampilan] .card').appendChild(el('p',{class:'err',text:'Pilihan tampilan belum tersedia di repo. Terbitkan sekali dari versi panel terbaru, lalu muat ulang.'}));return}
+ var t=tvGet(),O=S.tv.opsi;
+ [].forEach.call(document.querySelectorAll('.tv .seg[data-k]'),function(box){var k=box.dataset.k;box.textContent='';Object.keys(O[k]).forEach(function(v){
+  box.appendChild(el('button',{type:'button','aria-pressed':String(t[k]===v),onclick:function(){t[k]=v;changed();renderTampilan()}},[v[0].toUpperCase()+v.slice(1)]))})});
+ $('tWarna').value=hex(t.warna,'#5BB4D2');$('tWarna2').value=hex(t.warna_kedua,'#7FD1B9');$('tTombol').checked=!!t.tombol_tema;
+ var h=$('tHuruf');if(!h.options.length)Object.keys(O.huruf).forEach(function(f){h.appendChild(el('option',{value:f,text:f}))});h.value=O.huruf[t.huruf]?t.huruf:'Inter';
+ var P=$('tPreset');P.textContent='';PRESET.forEach(function(c){P.appendChild(el('button',{type:'button',style:'background:'+c+(c.toLowerCase()===String(t.warna).toLowerCase()?';border-color:var(--ink)':''),title:c,'aria-label':'Warna '+c,onclick:function(){t.warna=c;changed();renderTampilan()}}))});
+ preview()}
+$('tWarna').oninput=function(e){tvGet().warna=e.target.value;changed();preview()};
+$('tWarna2').oninput=function(e){tvGet().warna_kedua=e.target.value;changed();preview()};
+$('tHuruf').onchange=function(e){tvGet().huruf=e.target.value;changed();preview()};
+$('tTombol').onchange=function(e){tvGet().tombol_tema=e.target.checked;changed();preview()};
+$('tReset').onclick=function(){S.data.tampilan=JSON.parse(JSON.stringify(S.tv.bawaan));changed();renderTampilan()};
+function preview(){var f=$('pvFrame'),d;try{d=f.contentDocument}catch(e){return}if(!d||!d.head||!S.tv)return;var t=tvGet();
+ var st=d.getElementById('zpv');if(!st){st=d.createElement('style');st.id='zpv';d.head.appendChild(st)}st.textContent=temaCss(t);
+ var lk=d.getElementById('zpvf');if(!lk){lk=d.createElement('link');lk.id='zpvf';lk.rel='stylesheet';d.head.appendChild(lk)}lk.href='https://fonts.googleapis.com/css2?family='+(S.tv.opsi.huruf[t.huruf]||S.tv.opsi.huruf.Inter)+'&display=swap';
+ var R=d.documentElement;R.removeAttribute('data-theme');R.dataset.default=S.tv.opsi.tema[t.tema]||'dark';
+ var b=d.getElementById('tt');if(b)b.style.display=t.tombol_tema?'':'none'}
+$('pvFrame').addEventListener('load',preview);
+[].forEach.call(document.querySelectorAll('#pvHal button'),function(b){b.onclick=function(){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});$('pvFrame').src=b.dataset.h}});
+[].forEach.call(document.querySelectorAll('#pvDev button'),function(b){b.onclick=function(){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});$('pvFrame').parentNode.classList.toggle('hp',b.dataset.d==='hp')}});
+
+function renderAll(){renderApps();renderForms();renderTampilan();saveDraft()}
 var t=getTok();if(t){var mem=false;try{mem=!!localStorage.getItem(KEY_TOK)}catch(e){}$('ingat').checked=mem;$('tok').value=t;masuk(t,mem)}
 })();
 </script>
