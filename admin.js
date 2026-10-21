@@ -4,7 +4,7 @@ const CFG={apiKey:"AIzaSyC5SzHo8hf-nJoJogI3thTJKiulxvdkZ3E",authDomain:"web-zuis
 const B='https://www.gstatic.com/firebasejs/13.0.0/firebase-',KC='zui-cfg',imp=m=>import(B+m+'.js');
 const q=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)],cl=o=>JSON.parse(JSON.stringify(o)),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const F=[['h1','Judul utama'],['.hero p.l','Teks pengantar'],['#aplikasi h2','Judul Aplikasi'],['#aplikasi .sub','Keterangan Aplikasi'],['#cara h2','Judul Cara pakai'],['#cara .w>p.sub','Keterangan Cara pakai'],['#kontrol h2','Judul Kontrol'],['#harga h2','Judul Harga'],['#harga .sub','Keterangan Harga'],['#mulai h2','Judul Mulai'],['.fin h2','Judul penutup'],['.fin p','Teks penutup']];
-const orig=F.map(([s])=>{const e=q(s);return e?e.textContent:''}),mail0=(q('a[href^="mailto:"]')||{}).textContent||'';
+const orig=F.map(([s])=>{const e=q(s);return e?e.textContent:''}),mail0=(q('a[href^="mailto:"]:not([data-tetap])')||{}).textContent||'';
 const D0={apps:cl(APPS),paket:cl(PAKET),faq:qa('.fq details').map(d=>({q:d.querySelector('summary').textContent,a:d.querySelector('p').textContent}))};
 const FT=[{n:'Bawaan'},{n:'Modern',sf:'Inter',sn:'Inter',g:'Inter:wght@400;500;600;700'},{n:'Elegan',sf:'"Playfair Display"',sn:'"IBM Plex Sans"',g:'Playfair+Display:wght@500;600;700'},{n:'Hangat',sf:'Poppins',sn:'Poppins',g:'Poppins:wght@400;500;600'}];
 const TH=[['ac','Warna aksen (tombol, garis)','#135E78'],['bg','Warna latar','#F5F6F4'],['ink','Warna teks','#0E2230'],['nv','Warna bagian penutup','#0E2230']];
@@ -38,7 +38,7 @@ if(ft.g){let l=document.getElementById('zfn');if(!l){l=document.createElement('l
 const hs=SEC.filter(([k])=>h[k]).map(([k])=>`#${k},a[href="#${k}"]`).join(',');if(hs)css+=hs+'{display:none!important}';sty.textContent=css;
 APPS.length=0;APPS.push(...(c.apps||D0.apps));rA();PAKET.length=0;PAKET.push(...(c.paket||D0.paket));rp();
 const fq=q('.fq');if(fq)fq.innerHTML=(c.faq||D0.faq).map(x=>`<details><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join('');
-const ml=c.mail||mail0;qa('a[href^="mailto:"]').forEach(a=>{a.href='mailto:'+ml;a.textContent=ml})}
+const ml=c.mail||mail0;qa('a[href^="mailto:"]:not([data-tetap])').forEach(a=>{a.href='mailto:'+ml;a.textContent=ml})}
 let cfg={},draft=hyd({}),dirty=0,GAL=[];
 const gc=()=>{try{return JSON.parse(localStorage.getItem(KC)||'{}')}catch(e){return{}}};
 function render(){let s=document.getElementById('galeri');
