@@ -62,6 +62,9 @@ Alamat: `https://zuisystem.com/pengaturan.html` (tidak didaftarkan ke Google). D
 
 Semua data panel ada di `data/situs.json`; daftar ikon di `data/ikon.json` (dibuat oleh `build.py` dari `ICONS` di `_alat/common.py`).
 
+### Unggah langsung ke repo (tanpa panel)
+Foto `img/<kode>-<nomor>.jpg` dan video `video/<kode>.mp4` (sampul opsional `video/<kode>.jpg`) yang diunggah langsung ke repo dikenali otomatis oleh `build.py` dan tampil di panduan aplikasinya. Rinciannya di `img/README.md`. Unggahan ke `img/` atau `video/` di `main` menjalankan workflow **Bangun situs** sehingga halaman tersusun ulang sendiri.
+
 ### Masuk ke panel
 Panel memakai **fine-grained personal access token** GitHub milik pemilik; tanpa token yang benar, panel tidak bisa mengubah apa pun. Token disimpan hanya di peramban perangkat itu.
 1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.

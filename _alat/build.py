@@ -52,6 +52,50 @@ def app_video(a):
     return dict(yt=yid,mp4=mp4,webm=webm,poster=v.get('poster') if exists(v.get('poster')) else '',
         judul=v.get('judul') or 'Cara pakai '+a['n'],ket=v.get('ket') or 'Video singkat cara memakai '+a['n']+'.',
         durasi=v.get('durasi'),tanggal=v.get('tanggal') or DATE,pc=v.get('orientasi','pc')!='hp')
+def mp4_info(path):
+    """(lebar, tinggi, durasi detik) dari kotak tkhd/mvhd berkas MP4; None bila tidak terbaca."""
+    import struct
+    try:
+        d=open(path,'rb').read()
+        w=h=dur=None
+        i=d.find(b'mvhd')
+        if i>0:
+            v=d[i+4];o=i+4+4
+            if v==1:ts,du=struct.unpack('>IQ',d[o+16:o+28])
+            else:ts,du=struct.unpack('>II',d[o+8:o+16])
+            dur=round(du/ts) if ts else None
+        j=0
+        while True:
+            j=d.find(b'tkhd',j+1)
+            if j<0:break
+            v=d[j+4];size=struct.unpack('>I',d[j-4:j])[0];end=j-4+size
+            tw,th=struct.unpack('>II',d[end-8:end]);tw>>=16;th>>=16
+            if tw and th:
+                # perhitungkan rotasi (HP sering menyimpan video tegak sebagai mendatar + rotasi 90°)
+                mat=struct.unpack('>9i',d[end-44:end-8]);
+                if mat[0]==0 and abs(mat[1])==65536:tw,th=th,tw
+                w,h=tw,th;break
+        return (w,h,dur)
+    except Exception:return None
+def auto_media(a):
+    """Gambar dan video yang diunggah langsung ke repo tanpa lewat panel:
+    img/<kode>-<nomor>.(jpg|jpeg|png|webp) dan video/<kode>.(mp4|webm) dengan sampul opsional video/<kode>.jpg."""
+    k=re.escape(a['k']);known={g.get('file') for g in a['gambar']}
+    found=[]
+    if os.path.isdir(os.path.join(OUT,'img')):
+        for f in os.listdir(os.path.join(OUT,'img')):
+            m=re.match(rf'^{k}-(\d+)\.(jpe?g|png|webp)$',f,re.I)
+            if m and 'img/'+f not in known:found.append((int(m.group(1)),'img/'+f))
+    a['gambar']=list(a['gambar'])+[dict(file=f,ket='') for _,f in sorted(found)]
+    if app_video(a):return
+    for ext in ('mp4','webm'):
+        p=f'video/{a["k"]}.{ext}'
+        if exists(p):
+            info=mp4_info(os.path.join(OUT,p)) if ext=='mp4' else None
+            w,h,dur=info if info else (None,None,None)
+            a['video']=dict(file=p if ext=='mp4' else '',webm=p if ext=='webm' else '',poster=f'video/{a["k"]}.jpg' if exists(f'video/{a["k"]}.jpg') else '',
+                youtube='',judul='Cara pakai '+a['n'],ket='',durasi=dur,orientasi='hp' if (w and h and h>w) else 'pc',tanggal=DATE)
+            return
 def video_html(v):
     info=f' Video tanpa suara, {v["durasi"]} detik.' if v['durasi'] and not v['yt'] else ''
     if v['yt']:
@@ -74,6 +118,8 @@ def gallery_html(a):
         return f'<figure><a href="{g["file"]}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="{g["file"]}" alt="{esc(g.get("ket") or "Tampilan "+a["n"]+" "+str(i+1))}" loading="lazy"></a>{cap}</figure>'
     pcs=[(g,i) for i,g in enumerate(shots) if is_pc(os.path.join(OUT,g['file']))];hps=[(g,i) for i,g in enumerate(shots) if not is_pc(os.path.join(OUT,g['file']))]
     return ('<div class="gal pc">'+''.join(fig(g,i) for g,i in pcs)+'</div>' if pcs else '')+('<div class="gal">'+''.join(fig(g,i) for g,i in hps)+'</div>' if hps else '')
+
+for _a in APPS:auto_media(_a)
 
 # ---------- kartu panduan (beranda, blog, dan bagian terkait) ----------
 ERP_ART=dict(pg='apa-itu-erp.html',n='Apa Itu ERP? Panduan untuk Pemilik Usaha',d='Pengertian ERP, modul yang umum, tanda usaha Anda membutuhkannya, dan cara memilih.')
