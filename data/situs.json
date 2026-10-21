@@ -1,0 +1,109 @@
+{
+  "kontak": {
+    "wa": "62882000749699",
+    "wa_teks": "+62 882-0007-49699",
+    "email_info": "info@zuisystem.com",
+    "email_bantuan": "support@zuisystem.com",
+    "alamat": "Dsn. Togur Dajah, Sotabar, Pasean, Pamekasan, Jawa Timur 69356, Indonesia",
+    "jam": "Setiap hari, 08.00–22.00 WIB"
+  },
+  "beranda": {
+    "judul": "Aplikasi untuk",
+    "judul_warna": "usaha, proyek, dan belajar",
+    "pengantar": "Setiap aplikasi berdiri sendiri. Pilih yang Anda perlukan, lalu buka langsung di tab baru."
+  },
+  "aplikasi": [
+    {
+      "k": "erp",
+      "nama": "Zui ERP",
+      "url": "https://erp.zuisystem.com",
+      "ket": "Pembelian, stok, produksi, keuangan, dan karyawan.",
+      "kategori": "Usaha",
+      "warna": "#135E78",
+      "ikon": "grid",
+      "tampil": true,
+      "gambar": [],
+      "video": {
+        "file": "video/zui-erp.mp4",
+        "webm": "video/zui-erp.webm",
+        "poster": "video/zui-erp.jpg",
+        "youtube": "",
+        "judul": "Cara pakai Zui ERP",
+        "ket": "Ikuti satu pembelian dari PO sampai stok masuk, lewat persetujuan Admin dan Keuangan.",
+        "durasi": 49,
+        "orientasi": "hp",
+        "tanggal": "2026-10-17"
+      }
+    },
+    {
+      "k": "kontraktor",
+      "nama": "Zui Kontraktor",
+      "url": "https://kontraktor.zuisystem.com",
+      "ket": "Proyek, RAB, tagihan, pekerja, dan material.",
+      "kategori": "Usaha",
+      "warna": "#B4532A",
+      "ikon": "rumah",
+      "tampil": true,
+      "gambar": [],
+      "video": {
+        "file": "video/zui-kontraktor.mp4",
+        "webm": "video/zui-kontraktor.webm",
+        "poster": "video/zui-kontraktor.jpg",
+        "youtube": "",
+        "judul": "Cara pakai Zui Kontraktor",
+        "ket": "Ikuti satu proyek renovasi: anggaran, progres lapangan, material, dan termin pembayaran.",
+        "durasi": 54,
+        "orientasi": "hp",
+        "tanggal": "2026-10-17"
+      }
+    },
+    {
+      "k": "finance",
+      "nama": "Zui Finance",
+      "url": "https://finance.zuisystem.com",
+      "ket": "Pembukuan, faktur, laba rugi, dan neraca.",
+      "kategori": "Usaha",
+      "warna": "#2E7D5B",
+      "ikon": "grafik",
+      "tampil": true,
+      "gambar": [],
+      "video": null
+    },
+    {
+      "k": "jurnal",
+      "nama": "Zui Jurnal",
+      "url": "https://jurnal.zuisystem.com",
+      "ket": "Rencana, proyek, tugas, dan catatan pribadi.",
+      "kategori": "Pribadi",
+      "warna": "#6B4FA0",
+      "ikon": "catatan",
+      "tampil": true,
+      "gambar": [],
+      "video": null
+    },
+    {
+      "k": "todo",
+      "nama": "Zui To-Do",
+      "url": "https://todo.zuisystem.com",
+      "ket": "Tugas harian, papan, kalender, dan target.",
+      "kategori": "Pribadi",
+      "warna": "#C0392B",
+      "ikon": "daftar",
+      "tampil": true,
+      "gambar": [],
+      "video": null
+    },
+    {
+      "k": "studikita",
+      "nama": "Studi Kita",
+      "url": "https://studikita.zuisystem.com",
+      "ket": "Jadwal pelajaran, catatan, dan fokus belajar.",
+      "kategori": "Pelajar",
+      "warna": "#8C6414",
+      "ikon": "toga",
+      "tampil": true,
+      "gambar": [],
+      "video": null
+    }
+  ]
+}

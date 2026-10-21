@@ -51,3 +51,25 @@ Situs kini berfungsi sebagai etalase dan pintu masuk ke aplikasi. **Setiap aplik
 - **Video**: taruh di `video/<halaman>.mp4` (dan/atau `.webm`, poster `.jpg`), misalnya `video/zui-todo.mp4` atau `video/studi-kita.mp4`. Judul, keterangan, durasi, dan orientasi opsional di `video/<halaman>.json` (`judul`, `keterangan`, `durasi` detik, `tanggal`, `orientasi`: `pc` atau `hp`, bawaan `pc`). Video PC tampil lebar 16:9; video HP tampil tegak di samping teks. Video otomatis tampil di panduan, masuk data terstruktur, dan masuk `sitemap.xml`. Untuk PC disarankan 1280×720 atau 1920×1080 (MP4 H.264).
 - Video lama Zui Jurnal dipindah ke `video/arsip/` (tidak dipakai karena memuat "Satu akun").
 - Halaman dibangun dari skrip di `_alat/` (lihat `_alat/README.md`). Setelah menambah gambar atau video, jalankan `python3 _alat/build.py`.
+
+## Panel pengaturan (pemilik saja)
+Alamat: `https://zuisystem.com/pengaturan.html` (tidak didaftarkan ke Google). Dari panel, pemilik bisa:
+- **Aplikasi**: tambah, ubah (nama, alamat, keterangan, kategori, warna, ikon), urutkan, sembunyikan, hapus. Aplikasi baru otomatis tampil di halaman utama, footer, halaman Tentang, dan mendapat halaman sendiri `aplikasi-<kode>.html` (untuk gambar dan video). Panduan lengkap tetap ditulis di `_alat/articles.py`.
+- **Gambar**: unggah screenshot per aplikasi (dikecilkan otomatis ke JPG), beri keterangan, urutkan, hapus. Disimpan di `img/`.
+- **Video**: unggah MP4/WebM (maks. 95 MB, disimpan di `video/`, sampul dibuat otomatis) atau tempel tautan YouTube (diputar lewat youtube-nocookie, baru dimuat saat ditekan).
+- **Kontak** dan **teks halaman utama**.
+- **Terbitkan**: semua perubahan dikirim sebagai satu commit ke `main` lewat GitHub API. Workflow `.github/workflows/bangun-situs.yml` lalu menjalankan `_alat/build.py` dan menyimpan halaman hasilnya; GitHub Pages menayangkannya dalam beberapa menit. Riwayat setiap terbitan ada di GitHub dan bisa dikembalikan.
+
+Semua data panel ada di `data/situs.json`; daftar ikon di `data/ikon.json` (dibuat oleh `build.py` dari `ICONS` di `_alat/common.py`).
+
+### Masuk ke panel
+Panel memakai **fine-grained personal access token** GitHub milik pemilik; tanpa token yang benar, panel tidak bisa mengubah apa pun. Token disimpan hanya di peramban perangkat itu.
+1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.
+2. Resource owner `zui-system`; Repository access: Only select repositories → `zui-system/zui-system`.
+3. Repository permissions: **Contents: Read and write**, **Actions: Read-only**.
+4. Salin token dan tempel di panel. Cabut token kapan saja dari halaman yang sama.
+
+### Bila halaman tidak berubah setelah Terbitkan
+- Buka tab **Actions** di repo dan lihat workflow **Bangun situs**.
+- Bila gagal karena izin (403), buka Settings → Actions → General → Workflow permissions → pilih **Read and write permissions**.
+- GitHub Pages harus menayangkan dari cabang `main` (Settings → Pages → Deploy from a branch).
