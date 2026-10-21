@@ -1,0 +1,42 @@
+# Menyusun ulang halaman situs setiap kali data, gambar, video, atau skrip pembangun berubah di main
+# (misalnya setelah menekan Terbitkan di panel pengaturan), lalu menyimpan hasilnya ke main.
+name: Bangun situs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'img/**'
+      - 'video/**'
+      - '_alat/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bangun-situs
+  cancel-in-progress: false
+
+jobs:
+  bangun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Susun halaman
+        run: python3 _alat/build.py
+      - name: Simpan hasil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- '*.html' sitemap.xml data/ikon.json
+          if git diff --cached --quiet; then
+            echo "Tidak ada halaman yang berubah."
+          else
+            git commit -m "Susun ulang halaman situs"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /pengaturan.html
+Disallow: /_alat/
+Disallow: /data/
 
 Sitemap: https://zuisystem.com/sitemap.xml
