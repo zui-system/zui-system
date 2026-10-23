@@ -256,20 +256,56 @@ def legal_page(path,h1,intro,secs,desc,active='legal'):
     body_html=mails(intro+''.join(f'<h2 id="{i}">{l}</h2>{h}' for i,l,h in secs))
     lay=f'<div class="art"><nav class="toc" aria-label="Isi halaman"><b>Isi halaman</b>{toc}</nav><article class="pr">{body_html}</article></div>' if secs else f'<div class="art"><div></div><article class="pr">{body_html}</article></div>'
     body=f'''<div class="w"><nav class="crumb" aria-label="Lokasi"><a href="./">Beranda</a><span aria-hidden="true">›</span><span>{h1.replace("&","&amp;")}</span></nav>
-<header class="ah"><p class="ey">Zui System · {PT}</p><h1>{h1.replace("&","&amp;")}</h1><p class="meta"><span>Berlaku untuk situs zuisystem.com dan semua aplikasi Zui System</span><span>{L.VER}</span></p><nav class="legal-nav" aria-label="Dokumen legal">{nav}</nav></header>{lay}</div>'''
+<header class="ah"><p class="ey">Zui System · Dokumen legal</p><h1>{h1.replace("&","&amp;")}</h1><p class="meta"><span>Berlaku untuk situs zuisystem.com dan semua aplikasi Zui System</span><span>{L.VER}</span></p><nav class="legal-nav" aria-label="Dokumen legal">{nav}</nav></header>{lay}</div>'''
     page(path,f'{h1} Zui System',desc,body,active,ld=[{"@type":"WebPage","name":h1,"url":SITE+path,"inLanguage":"id","dateModified":DATE,"publisher":{"@id":SITE+"#org"}},crumbs([('Beranda',''),(h1,path)])],og='og-legal.png',legal=True)
-legal_page('syarat.html','Syarat Layanan',L.SYARAT_INTRO,L.SYARAT,f'Syarat Layanan situs dan aplikasi Zui System, dikelola oleh {PT}: akun, langganan, data, penggunaan yang dilarang, dan hukum yang berlaku.')
-legal_page('privasi.html','Kebijakan Privasi',L.PRIVASI_INTRO,L.PRIVASI,f'Kebijakan Privasi Zui System: data yang dikumpulkan tiap aplikasi, tempat penyimpanan, hak Anda, dan cara meminta penghapusan data. Dikelola oleh {PT}.')
+legal_page('syarat.html','Syarat Layanan',L.SYARAT_INTRO,L.SYARAT,f'Syarat Layanan situs dan aplikasi Zui System: akun, langganan, data, penggunaan yang dilarang, dan hukum yang berlaku.')
+legal_page('privasi.html','Kebijakan Privasi',L.PRIVASI_INTRO,L.PRIVASI,f'Kebijakan Privasi Zui System: data yang dikumpulkan tiap aplikasi, tempat penyimpanan, hak Anda, dan cara meminta penghapusan data.')
 legal_page('pengembalian-dana.html','Kebijakan Pengembalian Dana',L.REFUND_INTRO,L.REFUND,f'Kebijakan Pengembalian Dana langganan aplikasi Zui System: pengecualian kesalahan pembayaran, cara mengajukan, dan waktu proses.')
 apps_kv=''.join(f'<div><small>{esc(a["n"])}</small><a href="{esc(a["url"])}" target="_blank" rel="noopener">{esc(host(a["url"]))}</a></div>' for a in APPS)
-kontak=f'''<p>Situs dan aplikasi Zui System dikelola oleh Zui System, {PT}.</p>
-<div class="kv"><div><small>Perusahaan</small><b>{PT}</b></div><div><small>Alamat</small><b>{esc(ADDR)}</b></div>
+kontak=f'''<p>Situs dan aplikasi Zui System dikelola oleh {esc(PENGELOLA)}.</p>
+<div class="kv"><div><small>Pengelola</small><b>{esc(PENGELOLA)}</b></div><div><small>Alamat</small><b>{esc(ADDR)}</b></div>
 <div><small>WhatsApp</small><a href="{WA}" target="_blank" rel="noopener">{esc(WA_TXT)}</a></div><div><small>Jam layanan</small><b>{esc(JAM)}</b></div>
 <div><small>Bantuan &amp; pengembalian dana</small><a href="mailto:{EMAIL_HELP}">{EMAIL_HELP}</a></div><div><small>Informasi umum &amp; kerja sama</small><a href="mailto:{EMAIL_INFO}">{EMAIL_INFO}</a></div></div>
 <p><a class="wa" href="{WA}" target="_blank" rel="noopener" style="color:#073B1E;text-decoration:none">{WAI}Chat WhatsApp</a></p>
 <h2 id="situs">Situs aplikasi</h2><div class="kv">{apps_kv}</div>'''
-legal_page('kontak.html','Kontak & Alamat',kontak,[],f'Kontak Zui System, {PT}: WhatsApp {WA_TXT}, {EMAIL_HELP}, {EMAIL_INFO}, alamat, dan jam layanan.',active='kontak')
+legal_page('kontak.html','Kontak & Alamat',kontak,[],f'Kontak Zui System: WhatsApp {WA_TXT}, {EMAIL_HELP}, {EMAIL_INFO}, alamat, dan jam layanan.',active='kontak')
 OGS['og-legal.png']=(None,'Syarat, Privasi, dan Kontak')
+
+# ---------- FAQ ----------
+FAQ_GRUP=[('umum','Tentang Zui System',[
+ ('Apa itu Zui System?',f'Zui System membuat aplikasi web untuk usaha, proyek konstruksi, pembukuan, perencanaan pribadi, dan belajar. Situs dan aplikasinya dikelola oleh {PENGELOLA}.'),
+ ('Aplikasi apa saja yang tersedia?','Saat ini ada '+', '.join(esc(a['n'])+' ('+esc(host(a['url']))+')' for a in APPS)+'.'),
+ ('Apakah satu akun bisa dipakai di semua aplikasi?','Tidak. Setiap aplikasi berdiri sendiri, dengan akun, data, dan langganannya masing-masing. Anda cukup mendaftar di aplikasi yang Anda perlukan.'),
+ ('Apakah perlu memasang aplikasi dari Play Store atau App Store?','Tidak perlu. Aplikasi dibuka dari peramban di HP atau komputer, lalu bisa ditambahkan ke layar utama HP agar terasa seperti aplikasi biasa.')]),
+('langganan','Uji coba, langganan, dan pembayaran',[
+ ('Apakah bisa mencoba dulu sebelum membayar?','Bisa. Sebagian besar aplikasi menyediakan masa uji coba gratis atau paket gratis. Lama uji coba dan isi paket gratis bisa berbeda di tiap aplikasi.'),
+ ('Di mana saya bisa melihat paket dan harga?','Paket dan harga ditampilkan di dalam masing-masing aplikasi, biasanya di menu langganan atau pengaturan. Harga bisa berbeda antar aplikasi.'),
+ ('Bagaimana cara membayar langganan?','Pilih paket di dalam aplikasi, lalu bayar dengan metode yang ditampilkan di sana. Paket aktif setelah pembayaran terkonfirmasi.'),
+ ('Apakah langganan diperpanjang otomatis?','Tidak. Langganan tidak diperpanjang otomatis, sehingga tidak ada tagihan berulang tanpa persetujuan Anda.'),
+ ('Apa yang terjadi bila masa uji coba atau langganan habis?','Data Anda tetap tersimpan, tetapi bisa hanya dapat dilihat atau terkunci sampai langganan diperpanjang.')]),
+('refund','Pengembalian dana',[
+ ('Apakah langganan bisa dibatalkan dan uangnya dikembalikan?','Langganan yang sudah aktif bersifat final dan tidak dapat dikembalikan, kecuali karena kesalahan pembayaran: pembayaran ganda, kelebihan bayar, atau paket tidak diaktifkan dalam 3 × 24 jam setelah pembayaran.'),
+ ('Bagaimana cara mengajukan pengembalian dana?',f'Kirim email ke {EMAIL_HELP} berisi nama aplikasi, email akun, tanggal dan jumlah pembayaran, nomor referensi, serta rekening bank atau e-wallet tujuan pengembalian.'),
+ ('Berapa lama prosesnya?','Kami membalas paling lambat 2 hari kerja. Bila disetujui, dana dikirim dalam 7 sampai 14 hari kerja.')]),
+('data','Akun dan data',[
+ ('Apakah data saya aman?','Data setiap akun dan perusahaan dipisahkan, disimpan di layanan cloud tepercaya, dan dikirim lewat koneksi terenkripsi. Kami tidak menjual data dan tidak memakainya untuk iklan.'),
+ ('Bagaimana cara menghapus akun atau data?',f'Gunakan menu hapus di pengaturan aplikasi bila tersedia, atau kirim email ke {EMAIL_HELP} dari email akun Anda dan sebutkan nama aplikasinya. Kami memprosesnya paling lambat 7 hari kerja.'),
+ ('Saya lupa kata sandi. Apa yang harus dilakukan?','Pilih "Lupa kata sandi" di halaman masuk aplikasi, lalu ikuti tautan yang dikirim ke email Anda.')]),
+('bantuan','Bantuan',[
+ ('Bagaimana cara menghubungi Zui System?',f'Lewat WhatsApp {WA_TXT}, email {EMAIL_HELP} untuk bantuan, atau {EMAIL_INFO} untuk informasi umum dan kerja sama. Jam layanan: {JAM}.'),
+ ('Di mana alamat Zui System?',f'{ADDR}.')])]
+faq_link={'langganan':'<p>Ketentuan lengkap ada di <a href="syarat.html">Syarat Layanan</a>.</p>','refund':'<p>Rinciannya ada di <a href="pengembalian-dana.html">Kebijakan Pengembalian Dana</a>.</p>','data':'<p>Baca juga <a href="privasi.html">Kebijakan Privasi</a>.</p>','bantuan':'<p>Kontak lengkap ada di <a href="kontak.html">Kontak &amp; Alamat</a>.</p>'}
+faq_apps=''.join(f'<li><a href="{a["pg"]}#faq">{esc(a["n"])}</a></li>' for a in GUIDES)
+faq_toc=''.join(f'<a href="#{i}">{l}</a>' for i,l,_ in FAQ_GRUP)
+faq_isi=''.join(f'<h2 id="{i}">{l}</h2>'+faq_html([(esc(q),esc(a)) for q,a in g])+faq_link.get(i,'') for i,l,g in FAQ_GRUP)
+faq_body=f'''<div class="w"><nav class="crumb" aria-label="Lokasi"><a href="./">Beranda</a><span aria-hidden="true">›</span><span>FAQ</span></nav>
+<header class="ah"><p class="ey">Bantuan</p><h1>Pertanyaan yang sering diajukan</h1><p class="lede">Jawaban singkat tentang aplikasi Zui System, uji coba, langganan, pembayaran, pengembalian dana, dan data Anda.</p></header>
+<div class="art"><nav class="toc" aria-label="Isi halaman"><b>Isi halaman</b>{faq_toc}<a href="#aplikasi">Per aplikasi</a></nav><article class="pr">
+{faq_isi}
+<h2 id="aplikasi">Pertanyaan per aplikasi</h2><p>Pertanyaan khusus tiap aplikasi ada di panduannya:</p><ul>{faq_apps}</ul>
+</article></div></div>'''
+page('faq.html','FAQ Zui System: Pertanyaan yang Sering Diajukan','FAQ Zui System: uji coba, paket dan harga, cara membayar, pengembalian dana, keamanan data, hapus akun, dan cara menghubungi kami.',
+ faq_body,'',ld=[{"@type":"FAQPage","name":"FAQ Zui System","url":SITE+"faq.html","inLanguage":"id","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for _,_,g in FAQ_GRUP for q,a in g]},crumbs([('Beranda',''),('FAQ','faq.html')])],og='og-legal.png')
 
 # ---------- tentang ----------
 ab_apps=''.join(f'<li><a href="{a["pg"] or esc(a["url"])}"'+('' if a['pg'] else ' target="_blank" rel="noopener"')+f'><strong>{esc(a["n"])}</strong></a>: {esc(a["d"][:1].lower()+a["d"][1:])}</li>' for a in APPS)
@@ -292,7 +328,7 @@ page('tentang.html','Tentang Zui System','Tentang Zui System: siapa kami, aplika
 OGS['og-tentang.png']=(None,'Tentang Zui System')
 
 # ---------- sitemap ----------
-urls=[('',1.0),('blog.html',.8)]+[(a['pg'],.9) for a in GUIDES]+[(a['pg'],.6) for a in SIMPLE]+[('apa-itu-erp.html',.7)]+[(k,.7) for k in GEN]+[('tentang.html',.5)]+[(p,.4) for p,_ in LEG]
+urls=[('',1.0),('blog.html',.8)]+[(a['pg'],.9) for a in GUIDES]+[(a['pg'],.6) for a in SIMPLE]+[('apa-itu-erp.html',.7)]+[(k,.7) for k in GEN]+[('tentang.html',.5),('faq.html',.5)]+[(p,.4) for p,_ in LEG]
 VID={a['pg']:app_video(a) for a in APPS if app_video(a)}
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n'
 for u,p in urls:

@@ -1,5 +1,5 @@
 # Dokumen legal situs, disesuaikan dari dokumen legal ZUI Kontraktor untuk semua aplikasi Zui System.
-from common import PT,ADDR,WA,WA_TXT,APPS
+from common import PENGELOLA,ADDR,WA,WA_TXT,APPS
 APPLIST=', '.join(a['n'] for a in APPS[:-1])+', dan '+APPS[-1]['n']
 VER='Berlaku sejak 21 Oktober 2026'
 
@@ -28,7 +28,7 @@ SYARAT=[
 ('hukum','11. Hukum yang berlaku','''<p>Syarat ini tunduk pada hukum Republik Indonesia. Perselisihan diselesaikan lebih dulu secara musyawarah, dan bila tidak tercapai, melalui Pengadilan Negeri Pamekasan.</p>'''),
 ('hubungi','12. Hubungi kami','''<p>Lihat <a href="kontak.html">Kontak &amp; Alamat</a>.</p>'''),
 ]
-SYARAT_INTRO=f'''<p>Syarat ini mengatur penggunaan situs zuisystem.com dan aplikasi {APPLIST} (“aplikasi”) yang dikelola oleh Zui System, {PT} (“kami”). Dengan membuat akun atau memakai aplikasi, Anda menyetujui syarat ini.</p>
+SYARAT_INTRO=f'''<p>Syarat ini mengatur penggunaan situs zuisystem.com dan aplikasi {APPLIST} (“aplikasi”) yang dikelola oleh {PENGELOLA} (“kami”). Dengan membuat akun atau memakai aplikasi, Anda menyetujui syarat ini.</p>
 <p>Aplikasi tertentu bisa menampilkan ketentuan tambahan di dalamnya. Bila ada perbedaan, ketentuan di dalam aplikasi itulah yang berlaku untuk aplikasi tersebut.</p>'''
 
 PRIVASI=[
@@ -64,7 +64,7 @@ PRIVASI=[
 ('ubah','10. Perubahan kebijakan','''<p>Bila kebijakan ini berubah, kami akan memperbarui tanggal berlaku dan memberi tahu perubahan penting di aplikasi, di situs ini, atau lewat email.</p>'''),
 ('kontak','11. Hubungi kami','''<p>Pertanyaan atau permintaan soal data pribadi bisa dikirim ke <a href="mailto:support@zuisystem.com"><strong>support@zuisystem.com</strong></a>. Alamat lengkap ada di <a href="kontak.html">Kontak &amp; Alamat</a>.</p>'''),
 ]
-PRIVASI_INTRO=f'''<p>Kebijakan ini menjelaskan data apa yang dikumpulkan situs zuisystem.com dan aplikasi {APPLIST}, untuk apa, dan bagaimana Anda bisa mengaturnya. Semua aplikasi dikelola oleh Zui System, {PT}. Kami mengikuti Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi.</p>'''
+PRIVASI_INTRO=f'''<p>Kebijakan ini menjelaskan data apa yang dikumpulkan situs zuisystem.com dan aplikasi {APPLIST}, untuk apa, dan bagaimana Anda bisa mengaturnya. Semua aplikasi dikelola oleh {PENGELOLA}. Kami mengikuti Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi.</p>'''
 
 REFUND=[
 ('coba','1. Coba dulu sebelum membayar','''<p>Sebagian besar aplikasi Zui menyediakan masa uji coba gratis atau paket gratis. Kami menyarankan Anda memakai masa itu untuk memastikan aplikasi sesuai kebutuhan sebelum berlangganan.</p>'''),

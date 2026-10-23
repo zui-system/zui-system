@@ -111,7 +111,8 @@ details.help{margin-top:12px;font-size:13px;color:var(--mu)}details.help summary
  <div><label class="f" for="kWaT">Nomor WhatsApp yang ditampilkan</label><input id="kWaT" type="text" placeholder="+62 882-0007-49699"></div></div>
  <div class="row"><div><label class="f" for="kInfo">Email informasi umum</label><input id="kInfo" type="text"></div><div><label class="f" for="kHelp">Email bantuan</label><input id="kHelp" type="text"></div></div>
  <label class="f" for="kAlamat">Alamat</label><textarea id="kAlamat"></textarea>
- <label class="f" for="kJam">Jam layanan</label><input id="kJam" type="text"></div></div>
+ <label class="f" for="kJam">Jam layanan</label><input id="kJam" type="text">
+ <label class="f" for="kPemilik">Nama pemilik (opsional)</label><input id="kPemilik" type="text" placeholder="Nama sesuai KTP"><p class="s">Zui System terdaftar sebagai usaha perorangan. Bila diisi, halaman legal menulis “Zui System, usaha perorangan milik [nama]”.</p></div></div>
 
 <div data-p="beranda" class="hide"><div class="card" style="max-width:620px"><h2>Teks halaman utama</h2><p class="s">Judul besar dan kalimat pembuka di bagian paling atas halaman utama.</p>
  <label class="f" for="bJudul">Judul (bagian putih)</label><input id="bJudul" type="text" maxlength="40">
@@ -288,7 +289,7 @@ $('fVid').onchange=function(e){var a=curApp(),f=e.target.files[0];e.target.value
    a.video=nv;changed();renderVideo(a)})}).catch(function(er){URL.revokeObjectURL(url);$('vErr').textContent=er.message})};
 
 /* ---------- kontak & beranda ---------- */
-var BIND=[['kWa','kontak','wa'],['kWaT','kontak','wa_teks'],['kInfo','kontak','email_info'],['kHelp','kontak','email_bantuan'],['kAlamat','kontak','alamat'],['kJam','kontak','jam'],['bJudul','beranda','judul'],['bWarna','beranda','judul_warna'],['bPengantar','beranda','pengantar']];
+var BIND=[['kWa','kontak','wa'],['kWaT','kontak','wa_teks'],['kInfo','kontak','email_info'],['kHelp','kontak','email_bantuan'],['kAlamat','kontak','alamat'],['kJam','kontak','jam'],['kPemilik','kontak','pemilik'],['bJudul','beranda','judul'],['bWarna','beranda','judul_warna'],['bPengantar','beranda','pengantar']];
 BIND.forEach(function(b){$(b[0]).addEventListener('input',function(e){S.data[b[1]][b[2]]=e.target.value;changed()})});
 function renderForms(){BIND.forEach(function(b){$(b[0]).value=S.data[b[1]][b[2]]||''})}
 
