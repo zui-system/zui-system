@@ -3,7 +3,6 @@ OUT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE='https://zuisystem.com/'
 DATE='2026-10-21';DATE_ID='21 Oktober 2026'
 LOGO=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'logo.svg')).read()
-PT='PT. Zaor Utama Indonesia'
 def ic(p,sw='1.7'):return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{sw}" aria-hidden="true">{p}</svg>'
 WAI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.1L2.6 21.4l4.8-1.3A9.4 9.4 0 1 0 12 2.6z" fill="#fff"/><path d="M12 4.1a7.9 7.9 0 0 0-6.7 12.1l.2.3-.8 2.9 3-.8.3.2A7.9 7.9 0 1 0 12 4.1z" fill="#25D366"/><path d="M9.2 7.6c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.6 1.1 2.8c.1.2 1.8 2.9 4.5 4 2.2.9 2.7.7 3.2.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3l-1.9-.9c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5z" fill="#fff"/></svg>'
 MAIL=ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>')
@@ -78,6 +77,9 @@ SITE_V=_v(open(os.path.join(OUT,'site.css'),'rb').read());TEMA_V=_v(TEMA_CSS.enc
 K=DATA['kontak']
 WA_NUM=re.sub(r'\D','',K['wa']);WA='https://wa.me/'+WA_NUM;WA_TXT=K['wa_teks']
 ADDR=K['alamat'];EMAIL_INFO=K['email_info'];EMAIL_HELP=K['email_bantuan'];JAM=K['jam']
+# Pengelola: usaha perorangan. Nama pemilik (opsional) diisi di data/situs.json → kontak.pemilik
+PEMILIK=(K.get('pemilik') or '').strip()
+PENGELOLA='Zui System, usaha perorangan milik '+PEMILIK if PEMILIK else 'Zui System, usaha perorangan'
 def esc(s):return H.escape(str(s or ''),quote=True)
 # Data aplikasi untuk halaman: hanya yang ditampilkan, sesuai urutan di data
 APPS=[dict(k=a['k'],n=a['nama'],url=a['url'],pg=PANDUAN.get(a['k']) or 'aplikasi-'+a['k']+'.html',c=a.get('warna') or '#5BB4D2',g=a.get('kategori') or 'Usaha',
@@ -110,7 +112,7 @@ def crumbs(items):
 
 def page(path,title,desc,body,active='',ld=None,og='og-image.png',ogtype='website',extra_head='',legal=False):
     url=SITE+('' if path=='index.html' else path)
-    graph=[dict(ORG,legalName=PT) if legal else ORG]+(ld or [])
+    graph=[dict(ORG,founder={"@type":"Person","name":PEMILIK}) if legal and PEMILIK else ORG]+(ld or [])
     t=H.escape(title,quote=True);d=H.escape(desc,quote=True)
     doc=f'''<!DOCTYPE html>
 <html lang="id" data-default="{THEME_DEFAULT}"><head><meta charset="utf-8">
