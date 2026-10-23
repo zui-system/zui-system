@@ -96,7 +96,7 @@ def footer():
     return f'''<footer class="ft" id="kontak"><div class="w"><div class="fr">
 <div class="fb"><a class="lg" href="./" aria-label="Zui System, beranda">{LOGO}</a><p>Aplikasi untuk usaha, proyek, dan belajar.</p></div>
 <div><h2>Aplikasi</h2>{apps}</div>
-<div><h2>Informasi</h2><a href="tentang.html">Tentang Zui System</a><a href="blog.html">Blog</a><a href="syarat.html">Syarat Layanan</a><a href="privasi.html">Kebijakan Privasi</a><a href="pengembalian-dana.html">Pengembalian Dana</a><a href="kontak.html">Kontak &amp; Alamat</a></div>
+<div><h2>Informasi</h2><a href="tentang.html">Tentang Zui System</a><a href="blog.html">Blog</a><a href="faq.html">FAQ</a><a href="syarat.html">Syarat Layanan</a><a href="privasi.html">Kebijakan Privasi</a><a href="pengembalian-dana.html">Pengembalian Dana</a><a href="kontak.html">Kontak &amp; Alamat</a></div>
 <div><h2>Kontak</h2><div class="ic"><a class="waw" href="{WA}" target="_blank" rel="noopener" aria-label="Chat WhatsApp {WA_TXT}" title="WhatsApp {WA_TXT}">{WAI}</a><a href="mailto:{EMAIL_INFO}" aria-label="Email {EMAIL_INFO}" title="{EMAIL_INFO}">{MAIL}</a></div>
 <div class="ml"><a href="mailto:{EMAIL_INFO}">{MAIL}{EMAIL_INFO}</a><a href="mailto:{EMAIL_HELP}">{MAIL}{EMAIL_HELP}</a></div><address>{PIN}<span>{esc(ADDR)}</span></address></div>
 </div><p class="cp">© <span id="yr">2026</span> Zui System</p></div></footer>
