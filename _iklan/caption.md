@@ -88,6 +88,34 @@ Usaha tertata, proyek terpantau, rencana terjaga ✨ Cek 6 aplikasi Zui System d
 - **Tombol:** Pelajari Selengkapnya
 - **Target yang disarankan:** Indonesia, 20–50 tahun, minat: usaha kecil, kewirausahaan, konstruksi, akuntansi, produktivitas.
 
+## Tombol yang bisa ditekan
+
+Gambar dan video tidak bisa berisi tautan aktif; tombol yang bisa ditekan dipasang di platform saat mengunggah. Gunakan tautan di bawah (sudah diberi tanda `utm_` agar kunjungan dari tiap platform terlihat di statistik situs).
+
+| Platform | Cara memasang tombol | Tautan |
+|---|---|---|
+| Instagram/Facebook iklan berbayar (Meta Ads) | Saat membuat iklan, pilih **Tombol ajakan: Pelajari Selengkapnya**, isi **URL situs web** | `https://zuisystem.com/?utm_source=meta&utm_medium=iklan` |
+| Instagram/Facebook Story | Tambah **stiker Tautan** (ikon stiker → Tautan), tempel tautan, beri teks "Buka Zui System" | `https://zuisystem.com/?utm_source=instagram&utm_medium=story` |
+| Instagram feed/Reels | Tautan di caption tidak bisa ditekan; pasang di **Edit profil → Tautan** lalu tulis "link di bio" | `https://zuisystem.com/?utm_source=instagram&utm_medium=bio` |
+| Instagram (akun bisnis) | Profil → **Edit profil → Tombol tindakan / WhatsApp** agar ada tombol Chat di profil | `https://wa.me/62882000749699` |
+| TikTok | Tempel di bio profil; untuk iklan berbayar (TikTok Ads) pilih tombol **Pelajari selengkapnya** dan isi URL | `https://zuisystem.com/?utm_source=tiktok&utm_medium=bio` |
+| Facebook halaman | Halaman → **Tambah tombol → Kunjungi situs web** | `https://zuisystem.com/?utm_source=facebook&utm_medium=halaman` |
+| Facebook postingan biasa | Tempel tautan di teks (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=facebook&utm_medium=post` |
+| YouTube Shorts | Studio → video → **Video terkait**, dan tautan di deskripsi | `https://zuisystem.com/?utm_source=youtube&utm_medium=shorts` |
+| LinkedIn, X | Tempel tautan di teks postingan (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=linkedin` / `?utm_source=x` |
+| Status WhatsApp | Tulis tautan di keterangan status (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=whatsapp&utm_medium=status` |
+
+Untuk mengarahkan langsung ke aplikasi tertentu (misalnya slide carousel atau iklan khusus satu produk):
+
+| Aplikasi | Tautan |
+|---|---|
+| Zui ERP | `https://erp.zuisystem.com` |
+| Zui Kontraktor | `https://kontraktor.zuisystem.com` |
+| Zui Finance | `https://finance.zuisystem.com` |
+| Zui Jurnal | `https://jurnal.zuisystem.com` |
+| Zui To-Do | `https://todo.zuisystem.com` |
+| Studi Kita | `https://studikita.zuisystem.com` |
+
 ## Membuat ulang
 
 Ubah teks atau warna di `template.html`, lalu jalankan dari akar repo:
