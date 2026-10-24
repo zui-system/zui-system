@@ -327,6 +327,34 @@ page('tentang.html','Tentang Zui System','Tentang Zui System: siapa kami, aplika
  tentang_body,'',ld=[{"@type":"AboutPage","name":"Tentang Zui System","url":SITE+"tentang.html","inLanguage":"id","about":{"@id":SITE+"#org"},"dateModified":DATE},crumbs([('Beranda',''),('Tentang Zui System','tentang.html')])],og='og-tentang.png')
 OGS['og-tentang.png']=(None,'Tentang Zui System')
 
+# ---------- promo (tujuan tombol iklan media sosial) ----------
+# Tautan tiap aplikasi diberi utm agar kunjungan dari iklan terlihat di statistik aplikasi
+UTM='?utm_source=promo&utm_medium=iklan'
+promo_apps=''.join(f'''<li style="--c:{a["c"]}">{ti(a)}<div><b>{esc(a["n"])}</b><span>{esc(a["d"])}</span></div><a class="b" href="{esc(a["url"])}{UTM}" target="_blank" rel="noopener">Daftar / Masuk</a></li>''' for a in APPS)
+promo_css='''<style>
+.pm{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;padding:22px 0 30px}
+.pm h1{font:700 calc(clamp(26px,4.4vw,38px)*var(--hs))/1.12 var(--font);letter-spacing:-.03em;margin:6px 0 10px}
+.pm video{width:100%;aspect-ratio:9/16;border-radius:16px;border:1px solid var(--ln);background:var(--pn);display:block}
+.pa{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.pa li{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid color-mix(in srgb,var(--c) 45%,var(--ln));border-radius:12px;background:var(--pn)}
+.pa .ti{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:color-mix(in srgb,var(--c) 22%,var(--pn2));color:color-mix(in srgb,var(--c) 45%,var(--tif))}.pa .ti svg{width:22px;height:22px}
+.pa div{flex:1;min-width:0}.pa b{display:block;font-size:calc(15px*var(--fs))}.pa span{display:block;color:var(--mu);font-size:calc(12.5px*var(--fs));line-height:1.4}
+.pa .b{flex:none;padding:11px 16px;font-size:calc(13.5px*var(--fs))}
+.pw{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--mu);font-size:calc(13px*var(--fs))}
+@media (max-width:760px){.pm{grid-template-columns:1fr}.pm video{max-width:300px;margin:0 auto}.pa li{flex-wrap:wrap}.pa .b{width:100%;justify-content:center}}
+</style>'''
+promo_body=f'''<div class="w"><div class="pm"><div>
+<p class="ey">{angka(len(APPS)).capitalize()} aplikasi Zui System</p>
+<h1>Pilih aplikasinya, <span class="gr">langsung mulai.</span></h1>
+<p class="lede">Setiap aplikasi punya akun dan datanya sendiri. Tekan <strong>Daftar / Masuk</strong> pada aplikasi yang Anda butuhkan untuk membuat akun dan mencobanya.</p>
+<ul class="pa">{promo_apps}</ul>
+<div class="pw"><span>Masih ragu? Tanya dulu:</span><a class="wa" href="{WA}?text={__import__('urllib.parse').parse.quote('Halo Zui System, saya lihat iklannya dan ingin bertanya.')}" target="_blank" rel="noopener">{WAI}Chat WhatsApp</a></div>
+</div>
+<video src="video/promo.mp4" poster="video/promo.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video pengenalan enam aplikasi Zui System"></video>
+</div></div>'''
+page('promo.html','Mulai Pakai Aplikasi Zui System','Pilih aplikasi Zui System yang Anda butuhkan, lalu daftar dan coba langsung: Zui ERP, Zui Kontraktor, Zui Finance, Zui Jurnal, Zui To-Do, dan Studi Kita.',
+ promo_body,'',ld=[crumbs([('Beranda',''),('Mulai pakai','promo.html')])],extra_head=promo_css)
+
 # ---------- sitemap ----------
 urls=[('',1.0),('blog.html',.8)]+[(a['pg'],.9) for a in GUIDES]+[(a['pg'],.6) for a in SIMPLE]+[('apa-itu-erp.html',.7)]+[(k,.7) for k in GEN]+[('tentang.html',.5),('faq.html',.5)]+[(p,.4) for p,_ in LEG]
 VID={a['pg']:app_video(a) for a in APPS if app_video(a)}

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<style>
+:root{--bg:#0A141B;--pn:#111E27;--pn2:#162733;--ink:#E8EEF2;--mu:#93A3AF;--ln:#22343F;--ac:#5BB4D2;--ac2:#7FD1B9;--wa:#25D366}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:var(--w);height:var(--h);overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#st{position:relative;width:var(--w);height:var(--h);overflow:hidden;isolation:isolate}
+.glow{position:absolute;border-radius:50%;filter:blur(calc(var(--u)*90px));z-index:-1;opacity:.55}
+.sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--u)*90px);opacity:0}
+.zl{width:calc(var(--u)*300px);color:var(--ink)}
+.gr{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-weight:800;letter-spacing:-.035em;line-height:1.05}
+.ey{font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ac2);font-size:calc(var(--u)*30px)}
+.mu{color:var(--mu)}
+/* hook */
+#s1 h1{font-size:calc(var(--u)*104px);max-width:9em}
+.chips{display:flex;flex-direction:column;gap:calc(var(--u)*22px);margin-top:calc(var(--u)*60px);align-items:center}
+.chip{display:inline-flex;align-items:center;gap:calc(var(--u)*18px);background:var(--pn);border:2px solid var(--ln);border-radius:calc(var(--u)*22px);padding:calc(var(--u)*22px) calc(var(--u)*34px);font-size:calc(var(--u)*40px);font-weight:500}
+.chip i{font-style:normal;color:#E26D5A;font-weight:700}
+/* intro */
+#s2 .zl{width:calc(var(--u)*420px);margin-bottom:calc(var(--u)*60px)}
+#s2 h1{font-size:calc(var(--u)*80px);max-width:10em}
+/* aplikasi */
+.app{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--u)*90px);opacity:0}
+.card{position:relative;width:100%;max-width:calc(var(--u)*860px);background:var(--pn);border:2px solid color-mix(in srgb,var(--c) 55%,var(--ln));border-radius:calc(var(--u)*44px);padding:calc(var(--u)*70px) calc(var(--u)*64px);overflow:hidden;text-align:left}
+.card:after{content:"";position:absolute;right:calc(var(--u)*-120px);top:calc(var(--u)*-120px);width:calc(var(--u)*420px);height:calc(var(--u)*420px);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 60%,transparent),transparent)}
+.ti{width:calc(var(--u)*150px);height:calc(var(--u)*150px);border-radius:calc(var(--u)*36px);display:grid;place-items:center;background:color-mix(in srgb,var(--c) 35%,var(--pn2));color:color-mix(in srgb,var(--c) 35%,#fff)}
+.ti svg{width:55%;height:55%}
+.card .no{position:absolute;right:calc(var(--u)*64px);top:calc(var(--u)*78px);font-size:calc(var(--u)*34px);font-weight:600;color:var(--mu);z-index:1}
+.card h2{font-size:calc(var(--u)*86px);font-weight:800;letter-spacing:-.03em;margin:calc(var(--u)*50px) 0 calc(var(--u)*16px)}
+.card .for{font-size:calc(var(--u)*34px);font-weight:600;color:color-mix(in srgb,var(--c) 45%,#fff);text-transform:uppercase;letter-spacing:.1em}
+.feat{list-style:none;margin-top:calc(var(--u)*40px);display:flex;flex-direction:column;gap:calc(var(--u)*20px)}
+.feat li{font-size:calc(var(--u)*42px);display:flex;gap:calc(var(--u)*20px);align-items:center;opacity:0}
+.feat li:before{content:"";flex:none;width:calc(var(--u)*34px);height:calc(var(--u)*34px);border-radius:50%;background:color-mix(in srgb,var(--c) 70%,#fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A141B' stroke-width='3.2'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/70% no-repeat}
+.url{margin-top:calc(var(--u)*50px);font-size:calc(var(--u)*34px);color:var(--mu)}
+/* grid */
+#s4 h1,#pst h1{font-size:calc(var(--u)*78px);max-width:11em}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--u)*24px);width:100%;max-width:calc(var(--u)*880px);margin-top:calc(var(--u)*60px)}
+.tile{display:flex;align-items:center;gap:calc(var(--u)*22px);background:var(--pn);border:2px solid var(--ln);border-radius:calc(var(--u)*28px);padding:calc(var(--u)*26px);text-align:left}
+.tile .ti{width:calc(var(--u)*86px);height:calc(var(--u)*86px);border-radius:calc(var(--u)*22px);flex:none}
+.tile b{display:block;font-size:calc(var(--u)*38px);font-weight:700;letter-spacing:-.02em}
+.tile span{display:block;font-size:calc(var(--u)*26px);color:var(--mu);line-height:1.3;margin-top:calc(var(--u)*4px)}
+/* cta */
+#s5 .zl{width:calc(var(--u)*360px);margin-bottom:calc(var(--u)*56px)}
+#s5 h1{font-size:calc(var(--u)*92px)}
+.btn{display:inline-flex;align-items:center;gap:calc(var(--u)*16px);margin-top:calc(var(--u)*60px);background:linear-gradient(135deg,var(--ac),var(--ac2));color:#06212B;font-size:calc(var(--u)*54px);font-weight:700;padding:calc(var(--u)*30px) calc(var(--u)*64px);border-radius:calc(var(--u)*100px)}
+.wa{display:inline-flex;align-items:center;gap:calc(var(--u)*16px);margin-top:calc(var(--u)*34px);font-size:calc(var(--u)*38px);font-weight:600}
+.wa svg{width:calc(var(--u)*56px);height:calc(var(--u)*56px)}
+.cta2{display:flex;align-items:center;justify-content:center;gap:calc(var(--u)*36px);margin-top:calc(var(--u)*52px)}
+.cta2 .btn{margin:0!important}
+.qr{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*10px)}
+.qr i{display:block;background:#fff;padding:calc(var(--u)*14px);border-radius:calc(var(--u)*18px);width:calc(var(--u)*var(--q,190)*1px);height:calc(var(--u)*var(--q,190)*1px)}
+.qr svg{display:block;width:100%;height:100%}
+.qr span{font-size:calc(var(--u)*24px);color:var(--mu);font-weight:500;white-space:nowrap}
+#s5 .qr{--q:260;margin-top:calc(var(--u)*50px)}#s5 .qr span{font-size:calc(var(--u)*30px)}
+.s #s5 .zl{width:calc(var(--u)*230px);margin-bottom:calc(var(--u)*30px)}.s #s5 h1{font-size:calc(var(--u)*76px)}
+.s #s5 .btn{margin-top:calc(var(--u)*36px);font-size:calc(var(--u)*46px);padding:calc(var(--u)*24px) calc(var(--u)*56px)}
+.s #s5 .wa{margin-top:calc(var(--u)*22px)}.s #s5 .qr{--q:200;margin-top:calc(var(--u)*30px)}
+.s #pst .cta2{margin-top:calc(var(--u)*36px)}.s #pst .sub{display:none}.s #pst .qr{--q:120}.s #pst .qr span{font-size:calc(var(--u)*20px)}.s #pst h1{font-size:calc(var(--u)*64px)!important}.s #pst .zl{width:calc(var(--u)*170px)!important;margin-bottom:calc(var(--u)*24px)!important}.s #pst .tile{padding:calc(var(--u)*18px) calc(var(--u)*12px)}.s #pst .grid{margin-top:calc(var(--u)*36px)}
+.l #pst .cta2{justify-content:flex-start;margin-top:calc(var(--u)*34px);gap:calc(var(--u)*28px)}.l #pst .qr{--q:175}
+/* poster (gambar diam) */
+#pst .zl{width:calc(var(--u)*240px);margin-bottom:calc(var(--u)*46px)}
+#pst .sub{font-size:calc(var(--u)*36px);margin-top:calc(var(--u)*24px);max-width:22em}
+#pst .grid{margin-top:calc(var(--u)*52px)}
+#pst .btn{margin-top:calc(var(--u)*52px);font-size:calc(var(--u)*44px)}
+/* persegi: lebih rapat */
+.s #s1 h1{font-size:calc(var(--u)*92px)}.s .chips{flex-direction:row;flex-wrap:wrap;justify-content:center;margin-top:calc(var(--u)*50px)}
+.s .chip{font-size:calc(var(--u)*34px);padding:calc(var(--u)*18px) calc(var(--u)*26px)}
+.s .card{padding:calc(var(--u)*50px) calc(var(--u)*56px)}.s .card h2{font-size:calc(var(--u)*72px);margin-top:calc(var(--u)*34px)}
+.s .ti{width:calc(var(--u)*120px);height:calc(var(--u)*120px)}.s .feat{margin-top:calc(var(--u)*28px);gap:calc(var(--u)*14px)}.s .feat li{font-size:calc(var(--u)*38px)}
+.s .grid{grid-template-columns:repeat(3,1fr);max-width:none;gap:calc(var(--u)*18px)}
+.s .tile{flex-direction:column;text-align:center;padding:calc(var(--u)*24px) calc(var(--u)*14px);gap:calc(var(--u)*14px)}.s .tile span{display:none}
+.s .tile .ti{width:calc(var(--u)*80px);height:calc(var(--u)*80px)}.s .tile b{font-size:calc(var(--u)*32px)}
+.s #pst .zl{width:calc(var(--u)*200px);margin-bottom:calc(var(--u)*30px)}.s #pst h1{font-size:calc(var(--u)*70px)}.s #pst .sub{font-size:calc(var(--u)*32px)}
+.s #pst .grid{margin-top:calc(var(--u)*40px)}.s #pst .btn{margin-top:calc(var(--u)*40px);font-size:calc(var(--u)*40px);padding:calc(var(--u)*24px) calc(var(--u)*54px)}
+.s #pst{padding:calc(var(--u)*70px)}
+/* mendatar (1200×628) */
+.l #pst{flex-direction:row;text-align:left;gap:calc(var(--u)*50px);padding:calc(var(--u)*60px) calc(var(--u)*70px)}
+.l #pst .kiri{flex:1;display:flex;flex-direction:column;align-items:flex-start}
+.l #pst h1{font-size:calc(var(--u)*64px)}.l #pst .sub{font-size:calc(var(--u)*28px)}
+.l #pst .zl{width:calc(var(--u)*170px);margin-bottom:calc(var(--u)*30px)}
+.l #pst .btn{font-size:calc(var(--u)*32px);padding:calc(var(--u)*20px) calc(var(--u)*42px);margin-top:calc(var(--u)*36px)}
+.l #pst .grid{width:calc(var(--u)*660px);flex:none;margin:0;gap:calc(var(--u)*14px)}
+.l .tile{padding:calc(var(--u)*18px);gap:calc(var(--u)*16px)}.l .tile .ti{width:calc(var(--u)*64px);height:calc(var(--u)*64px);border-radius:calc(var(--u)*16px)}
+.l .tile b{font-size:calc(var(--u)*28px)}.l .tile span{font-size:calc(var(--u)*20px)}
+</style></head>
+<body><div id="st">
+<div class="glow" id="g1" style="width:70%;height:40%;background:var(--ac);left:-20%;top:-10%"></div>
+<div class="glow" id="g2" style="width:60%;height:40%;background:var(--ac2);right:-20%;bottom:-10%"></div>
+
+<section class="sc" id="s1">
+ <h1>Catatan usaha masih <span class="gr">berantakan?</span></h1>
+ <div class="chips">
+  <div class="chip"><i>✕</i> Stok dicatat di buku</div>
+  <div class="chip"><i>✕</i> RAB dihitung manual</div>
+  <div class="chip"><i>✕</i> Tugas cuma diingat</div>
+ </div>
+</section>
+
+<section class="sc" id="s2">{{LOGO}}<h1>Rapikan semuanya dengan <span class="gr">Zui System</span></h1></section>
+
+<div id="apps"></div>
+
+<section class="sc" id="s4">
+ <div class="ey">6 aplikasi Zui System</div>
+ <h1 style="margin-top:calc(var(--u)*24px)">Dari usaha sampai <span class="gr">belajar</span>, semua tertata.</h1>
+ <div class="grid" id="g4"></div>
+</section>
+
+<section class="sc" id="s5">{{LOGO}}
+ <h1>Coba <span class="gr">sekarang</span></h1>
+ <div class="btn">zuisystem.com</div>
+ <div class="wa">{{WA}}<span>+62 882-0007-49699</span></div>
+ <div class="qr"><i>{{QR}}</i><span>Pindai untuk buka website</span></div>
+</section>
+
+<section class="sc" id="pst">
+ <div class="kiri">{{LOGO}}
+  <h1>Usaha tertata. Proyek terpantau. <span class="gr">Rencana terjaga.</span></h1>
+  <p class="sub mu">Enam aplikasi untuk usaha, proyek, keuangan, tugas, dan belajar.</p>
+  <div class="cta2"><div class="btn">zuisystem.com</div><div class="qr"><i>{{QR}}</i><span>Pindai untuk buka</span></div></div>
+ </div>
+ <div class="grid" id="gp"></div>
+</section>
+</div>
+<script>
+const IC={{ICONS}};
+const A=[
+ {n:'Zui ERP',f:'Pemilik usaha',c:'#135E78',i:'grid',p:['Pembelian & stok','Produksi','Keuangan & karyawan'],d:'Stok, pembelian, produksi'},
+ {n:'Zui Kontraktor',f:'Kontraktor & tukang',c:'#B4532A',i:'rumah',p:['Proyek & RAB','Tagihan','Pekerja & material'],d:'Proyek, RAB, tagihan'},
+ {n:'Zui Finance',f:'Pembukuan',c:'#2E7D5B',i:'grafik',p:['Pembukuan & faktur','Laba rugi','Neraca'],d:'Faktur, laba rugi, neraca'},
+ {n:'Zui Jurnal',f:'Rencana pribadi',c:'#6B4FA0',i:'catatan',p:['Rencana & proyek','Tugas','Catatan pribadi'],d:'Rencana, tugas, catatan'},
+ {n:'Zui To-Do',f:'Tugas harian',c:'#C0392B',i:'daftar',p:['Tugas harian','Papan & kalender','Target'],d:'Tugas, kalender, target'},
+ {n:'Studi Kita',f:'Pelajar',c:'#8C6414',i:'toga',p:['Jadwal pelajaran','Catatan','Fokus belajar'],d:'Jadwal, catatan, fokus'}];
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+const Q=new URLSearchParams(location.search),W=+Q.get('w')||1080,H=+Q.get('h')||1920;
+const F=W>H*1.3?'l':W>=H*0.8?'s':'v',U=F=='l'?H/628*.8:F=='v'?Math.min(W,H*.5625*1.13)/1080:W/1080;
+document.documentElement.style.cssText=`--w:${W}px;--h:${H}px;--u:${U}`;document.body.className=F;
+document.getElementById('apps').innerHTML=A.map((a,k)=>`<section class="app" id="a${k}" style="--c:${a.c}"><div class="card"><span class="no">${k+1}/6</span><div class="ti">${svg(a.i)}</div><h2>${a.n}</h2><div class="for">Untuk ${a.f.toLowerCase()}</div><ul class="feat">${a.p.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="url">${a.n.toLowerCase().replace('zui ','').replace(' ','').replace('-','')}.zuisystem.com</div></section>`).join('');
+const tiles=A.map(a=>`<div class="tile" style="--c:${a.c}"><div class="ti">${svg(a.i)}</div><div><b>${a.n}</b><span>${a.d}</span></div></div>`).join('');
+document.getElementById('g4').innerHTML=tiles;document.getElementById('gp').innerHTML=tiles;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=x=>Math.max(0,Math.min(1,x)),eo=x=>1-Math.pow(1-cl(x),3),eb=x=>{x=cl(x);const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+// tampil(t,a,b): 0→1 pada awal adegan, 1→0 pada akhir adegan
+const vis=(t,a,b,f=.35)=>cl((t-a)/f)*cl((b-t)/f);
+function set(el,o,y=0,s=1){el.style.opacity=o;el.style.transform=`translateY(${y}px) scale(${s})`}
+// Jadwal video (detik)
+const T={s1:[0,3.4],s2:[3.4,5.8],app:5.8,per:1.7,s4:[16.0,19.4],s5:[19.4,23]};
+const DUR=T.s5[1];
+function render(t){
+ $('#pst').style.opacity=0;
+ set($('#s1'),vis(t,...T.s1));
+ $$('#s1 .chip').forEach((c,k)=>{const p=eb((t-.6-k*.35)/.45);set(c,cl(p*1.5),(1-p)*60*U,.85+.15*p);c.style.transform+=` rotate(${Math.sin(t*9+k)*1.2*cl(p)}deg)`});
+ const p1=eo((t-.05)/.6);$('#s1 h1').style.transform=`translateY(${(1-p1)*50*U}px)`;
+ const v2=vis(t,...T.s2);set($('#s2'),v2,0,.94+.06*eo((t-T.s2[0])/.8));
+ const lp=eo((t-T.s2[0]-.1)/.7);$('#s2 .zl').style.cssText=`opacity:${lp};transform:translateY(${(1-lp)*-40*U}px)`;
+ A.forEach((a,k)=>{const s=T.app+k*T.per,e=s+T.per,el=$('#a'+k),v=vis(t,s,e,.25);
+  const x=t<s+.3?(1-eo((t-s)/.3))*W*.25:-eo((t-e+.25)/.25)*W*.25;
+  el.style.opacity=v;el.style.transform=`translateX(${x}px)`;
+  el.querySelectorAll('.feat li').forEach((li,j)=>{const p=eo((t-s-.3-j*.17)/.3);li.style.opacity=p;li.style.transform=`translateX(${(1-p)*30*U}px)`});
+  const ti=el.querySelector('.ti'),pp=eb((t-s-.05)/.45);ti.style.transform=`scale(${.6+.4*pp})`});
+ set($('#s4'),vis(t,...T.s4));
+ $$('#g4 .tile').forEach((c,k)=>{const p=eb((t-T.s4[0]-.4-k*.12)/.4);set(c,cl(p*1.4),(1-p)*50*U,.9+.1*p)});
+ const v5=cl((t-T.s5[0])/.35);set($('#s5'),v5);
+ const bp=eb((t-T.s5[0]-.5)/.5);$('#s5 .btn').style.transform=`scale(${(.7+.3*bp)*(1+.03*Math.sin(Math.max(0,t-T.s5[0]-1.2)*5))})`;
+ const wp=eo((t-T.s5[0]-.9)/.4);$('#s5 .wa').style.opacity=wp;
+ const qp=eb((t-T.s5[0]-1.2)/.5);set($('#s5 .qr'),cl(qp*1.4),(1-qp)*40*U,.85+.15*qp);
+ $('#g1').style.transform=`translate(${Math.sin(t*.6)*60*U}px,${Math.cos(t*.5)*80*U}px)`;
+ $('#g2').style.transform=`translate(${Math.cos(t*.5)*60*U}px,${Math.sin(t*.7)*80*U}px)`;
+}
+function poster(){$$('.sc,.app').forEach(e=>e.style.opacity=0);$('#pst').style.opacity=1}
+function appCard(k){$$('.sc,.app').forEach(e=>e.style.opacity=0);render(T.app+k*T.per+T.per/2+.5);$$('.sc').forEach(e=>e.style.opacity=0)}
+window.R={render,poster,appCard,DUR};
+</script></body></html>

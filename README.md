@@ -77,3 +77,7 @@ Panel memakai **fine-grained personal access token** GitHub milik pemilik; tanpa
 - Buka tab **Actions** di repo dan lihat workflow **Bangun situs**.
 - Bila gagal karena izin (403), buka Settings → Actions → General → Workflow permissions → pilih **Read and write permissions**.
 - GitHub Pages harus menayangkan dari cabang `main` (Settings → Pages → Deploy from a branch).
+
+## Iklan media sosial (Oktober 2026)
+- Materi iklan (poster, carousel, video, caption) ada di `_iklan/` (tidak ikut terbit); lihat `_iklan/caption.md`.
+- Halaman tujuan tombol iklan: `promo.html` (video `video/promo.mp4` + tombol Daftar / Masuk ke tiap aplikasi dan Chat WhatsApp), dibuat dari `_alat/build.py`. Tidak dimasukkan ke menu dan `sitemap.xml`.
