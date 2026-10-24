@@ -90,22 +90,24 @@ Usaha tertata, proyek terpantau, rencana terjaga ✨ Cek 6 aplikasi Zui System d
 
 ## Tombol yang bisa ditekan
 
+Semua tombol iklan diarahkan ke **halaman promo** `https://zuisystem.com/promo.html`: video iklan, tombol **Daftar / Masuk** untuk keenam aplikasi, dan tombol Chat WhatsApp. Halaman ini dibuat oleh `_alat/build.py` (bagian promo); videonya `video/promo.mp4`.
+
 Gambar dan video tidak bisa berisi tautan aktif; tombol yang bisa ditekan dipasang di platform saat mengunggah. Gunakan tautan di bawah (sudah diberi tanda `utm_` agar kunjungan dari tiap platform terlihat di statistik situs).
 
 | Platform | Cara memasang tombol | Tautan |
 |---|---|---|
-| Instagram/Facebook iklan berbayar (Meta Ads) | Saat membuat iklan, pilih **Tombol ajakan: Pelajari Selengkapnya**, isi **URL situs web** | `https://zuisystem.com/?utm_source=meta&utm_medium=iklan` |
-| Instagram/Facebook Story | Tambah **stiker Tautan** (ikon stiker → Tautan), tempel tautan, beri teks "Buka Zui System" | `https://zuisystem.com/?utm_source=instagram&utm_medium=story` |
-| Instagram feed/Reels | Tautan di caption tidak bisa ditekan; pasang di **Edit profil → Tautan** lalu tulis "link di bio" | `https://zuisystem.com/?utm_source=instagram&utm_medium=bio` |
+| Instagram/Facebook iklan berbayar (Meta Ads) | Saat membuat iklan, pilih **Tombol ajakan: Pelajari Selengkapnya**, isi **URL situs web** | `https://zuisystem.com/promo.html?utm_source=meta&utm_medium=iklan` |
+| Instagram/Facebook Story | Tambah **stiker Tautan** (ikon stiker → Tautan), tempel tautan, beri teks "Buka Zui System" | `https://zuisystem.com/promo.html?utm_source=instagram&utm_medium=story` |
+| Instagram feed/Reels | Tautan di caption tidak bisa ditekan; pasang di **Edit profil → Tautan** lalu tulis "link di bio" | `https://zuisystem.com/promo.html?utm_source=instagram&utm_medium=bio` |
 | Instagram (akun bisnis) | Profil → **Edit profil → Tombol tindakan / WhatsApp** agar ada tombol Chat di profil | `https://wa.me/62882000749699` |
-| TikTok | Tempel di bio profil; untuk iklan berbayar (TikTok Ads) pilih tombol **Pelajari selengkapnya** dan isi URL | `https://zuisystem.com/?utm_source=tiktok&utm_medium=bio` |
-| Facebook halaman | Halaman → **Tambah tombol → Kunjungi situs web** | `https://zuisystem.com/?utm_source=facebook&utm_medium=halaman` |
-| Facebook postingan biasa | Tempel tautan di teks (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=facebook&utm_medium=post` |
-| YouTube Shorts | Studio → video → **Video terkait**, dan tautan di deskripsi | `https://zuisystem.com/?utm_source=youtube&utm_medium=shorts` |
-| LinkedIn, X | Tempel tautan di teks postingan (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=linkedin` / `?utm_source=x` |
-| Status WhatsApp | Tulis tautan di keterangan status (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=whatsapp&utm_medium=status` |
+| TikTok | Tempel di bio profil; untuk iklan berbayar (TikTok Ads) pilih tombol **Pelajari selengkapnya** dan isi URL | `https://zuisystem.com/promo.html?utm_source=tiktok&utm_medium=bio` |
+| Facebook halaman | Halaman → **Tambah tombol → Kunjungi situs web** | `https://zuisystem.com/promo.html?utm_source=facebook&utm_medium=halaman` |
+| Facebook postingan biasa | Tempel tautan di teks (bisa ditekan langsung) | `https://zuisystem.com/promo.html?utm_source=facebook&utm_medium=post` |
+| YouTube Shorts | Studio → video → **Video terkait**, dan tautan di deskripsi | `https://zuisystem.com/promo.html?utm_source=youtube&utm_medium=shorts` |
+| LinkedIn, X | Tempel tautan di teks postingan (bisa ditekan langsung) | `https://zuisystem.com/promo.html?utm_source=linkedin` / `?utm_source=x` |
+| Status WhatsApp | Tulis tautan di keterangan status (bisa ditekan langsung) | `https://zuisystem.com/promo.html?utm_source=whatsapp&utm_medium=status` |
 
-**Kode QR:** semua poster dan akhir kedua video memuat kode QR ke `https://zuisystem.com/?utm_source=qr&utm_medium=iklan`, jadi orang yang melihat iklan di layar lain (laptop, TV, cetakan) bisa memindainya dengan kamera HP.
+**Kode QR:** semua poster dan akhir kedua video memuat kode QR ke `https://zuisystem.com/promo.html?utm_source=qr&utm_medium=iklan`, jadi orang yang melihat iklan di layar lain (laptop, TV, cetakan) bisa memindainya dengan kamera HP.
 
 Untuk mengarahkan langsung ke aplikasi tertentu (misalnya slide carousel atau iklan khusus satu produk):
 
