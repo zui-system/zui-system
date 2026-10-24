@@ -105,6 +105,8 @@ Gambar dan video tidak bisa berisi tautan aktif; tombol yang bisa ditekan dipasa
 | LinkedIn, X | Tempel tautan di teks postingan (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=linkedin` / `?utm_source=x` |
 | Status WhatsApp | Tulis tautan di keterangan status (bisa ditekan langsung) | `https://zuisystem.com/?utm_source=whatsapp&utm_medium=status` |
 
+**Kode QR:** semua poster dan akhir kedua video memuat kode QR ke `https://zuisystem.com/?utm_source=qr&utm_medium=iklan`, jadi orang yang melihat iklan di layar lain (laptop, TV, cetakan) bisa memindainya dengan kamera HP.
+
 Untuk mengarahkan langsung ke aplikasi tertentu (misalnya slide carousel atau iklan khusus satu produk):
 
 | Aplikasi | Tautan |
@@ -118,7 +120,7 @@ Untuk mengarahkan langsung ke aplikasi tertentu (misalnya slide carousel atau ik
 
 ## Membuat ulang
 
-Ubah teks atau warna di `template.html`, lalu jalankan dari akar repo:
+Ubah teks atau warna di `template.html`, lalu jalankan dari akar repo (perlu `pip install segno` untuk kode QR):
 
 ```
 python3 _iklan/buat.py          # semua
